@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('bdd.php');
+require('config/bdd.php');
 if(isset($_SESSION['id']) && $_SESSION['id'] > 0)
 {
     $getid = intval($_SESSION['id']); // Convertie ma valeur en int ( ID = un numéro )
@@ -16,8 +16,10 @@ if(isset($_SESSION['id']) && $_SESSION['id'] > 0)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>Profil</title>
 </head>
+<body>
     <header>
             <?php if (isset($_SESSION['login'])) {
                     include_once("include/headeronline.php");
@@ -27,7 +29,7 @@ if(isset($_SESSION['id']) && $_SESSION['id'] > 0)
                 }
                 ?>
     </header>
-<body>
+<main>
     <h2>Profil de <?php echo $infoutilisateur['login'] ?> </h2>
     <br /><br />
     Login = <?php echo $infoutilisateur['login'] ?>
@@ -37,13 +39,13 @@ if(isset($_SESSION['id']) && $_SESSION['id'] > 0)
     <br /><br />
     <a class="profila" href="editionprofil.php"> Editer son profil</a>
     <br /><br />
-    <a href="deconnexion.php">
-        <input type="submit" class ="deco" name="deconnexion" value="Se déconnecté"><br><br><br>
-    </a>
-</body>
+
+</main>
+
 <footer>
         <?php
         include_once('include/footer.php'); 
         ?>
 </footer>
+</body>
 </html>

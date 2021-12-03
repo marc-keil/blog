@@ -57,6 +57,7 @@ if(isset($_POST['forminscription']))
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription</title>
 </head>
@@ -70,6 +71,7 @@ if(isset($_POST['forminscription']))
             }
             ?>
         </header>
+        <main>
             <h2>Remplissez notre formulaire d'inscription</h2>
                 <br /><br />
                 <form method="POST" action="">
@@ -113,6 +115,7 @@ if(isset($_POST['forminscription']))
             echo '<font color="red">'.$erreur.'</font>'; 
             }
             ?>
+        </main>
         <footer>
         <?php
         include_once('include/footer.php'); 
