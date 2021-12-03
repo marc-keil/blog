@@ -25,6 +25,7 @@ if(isset($_SESSION['id']) && $_SESSION['id'] > 0)
             $insertlogin = $bdd->prepare("UPDATE utilisateurs SET login = ? WHERE id = ?");
             $insertlogin->execute(array($newlogin, $_SESSION['id']));
             header('Location: profil.php');
+            exit();
             }
         }	
 
@@ -45,6 +46,7 @@ if(isset($_SESSION['id']) && $_SESSION['id'] > 0)
             $insertmail = $bdd->prepare("UPDATE utilisateurs SET email = ? WHERE id = ?");
             $insertmail->execute(array($newmail, $_SESSION['id']));
             header('Location: profil.php');
+            exit();
             }
         }	
 
@@ -153,6 +155,7 @@ if(isset($_SESSION['id']) && $_SESSION['id'] > 0)
 else 
 {
 header("Location: connexion.php");
+exit();
 }
 
 ?>
