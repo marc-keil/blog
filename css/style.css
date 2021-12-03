@@ -1,0 +1,15 @@
+
+
+
+.space{
+
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+select {
+    margin: 0;
+    padding-left: 15px;
+    color: #555555;
+    cursor: pointer;
+    }
