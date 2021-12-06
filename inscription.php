@@ -3,6 +3,7 @@ session_start();
 require('config/bdd.php');
 
 
+
 if(isset($_POST['forminscription']))
 {
     $erreur = "";
