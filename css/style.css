@@ -14,12 +14,6 @@ select {
     color: #555555;
     cursor: pointer;
     }
-    .dropbtn {
-
-
-
-        border: none;
-    }
     
     .dropdown {
         position: relative;
@@ -71,7 +65,7 @@ select {
     justify-content: center;
     font-size: 1.5em;
     text-decoration: none; 
-    background-color: royalblue;
+
 }
 .crimgfoot1 {
 

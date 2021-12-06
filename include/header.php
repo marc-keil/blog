@@ -15,16 +15,17 @@
             <h1>Le plus beau des blogs</h1>
             <nav>
                 <ul class="nav nav-tabs">
-                    <li class="nav-item"><a class="nav-link" href="#">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php">Accueil</a></li>
                     <li>
-                        <div class="container">
                             <div class="dropdown">
-                                <button class="dropbtn">Articles</button>
+                                <a class="">Articles</a>
                                 <div class="dropdown-content">
 
                                     <a href="#">Catégorie 1</a>
                                     <a href="#">Catégorie 2</a>
                                     <a href="#">Catégorie 3</a>
+                                </div>
+                            </div>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#">Inscription</a></li>
                     <li class="nav-item"><a class="nav-link " href="#">Connexion</a></li>

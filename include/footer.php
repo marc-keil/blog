@@ -8,10 +8,10 @@
         <div class="crfootdiv2">
             <ul class="crfootul">
                 <li><h2 class="crfooth2">Nous Suivre</h2></li>
-                <li class="crfootli"><a class="crfoota" href="#"><img class="crimgfoot1" src="../images/logofacebook.jpg" alt="facebook"></a></li>
-                <li class="crfootli"><a class="crfoota"  href="#"><img class="crimgfoot1"  src="../images/instagram.png" alt="instagram"></a></li>
-                <li class="crfootli"><a class="crfoota"  href="#"><img class="crimgfoot2" src="../images/twitter.png" alt="twitter"></a></li>
-                <li class="crfootli"><a class="crfoota"  href="https://github.com/marc-keil/blog"><img class="crimgfoot2"  src="../images/github.png" alt="Git Hub"></a></li>
+                <li class="crfootli"><a class="crfoota" href="#"><img class="crimgfoot1" src="images/logofacebook.jpg" alt="facebook"></a></li>
+                <li class="crfootli"><a class="crfoota"  href="#"><img class="crimgfoot1"  src="images/instagram.png" alt="instagram"></a></li>
+                <li class="crfootli"><a class="crfoota"  href="#"><img class="crimgfoot2" src="images/twitter.png" alt="twitter"></a></li>
+                <li class="crfootli"><a class="crfoota"  href="https://github.com/marc-keil/blog"><img class="crimgfoot2"  src="images/github.png" alt="Git Hub"></a></li>
             </ul>
         </div>
                 
