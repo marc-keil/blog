@@ -23,8 +23,6 @@ if(isset($_POST['formconnexion']))
                     {
                     $_SESSION['id'] = $result[0]['id'];
                     $_SESSION['login'] = $result[0]['login'];
-                    $_SESSION['nom'] = $result[0]['nom'];
-                    $_SESSION['prenom'] = $result[0]['prenom'];
                     $_SESSION['email'] = $result[0]['email'];
                     header("Location: profil.php");
                     

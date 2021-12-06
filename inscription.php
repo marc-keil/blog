@@ -42,6 +42,7 @@ if(isset($_POST['forminscription']))
             $insertmbr->execute(array($login,$hachage,$email)); // Exécute une requête préparée PDO
             $erreur = "Votre compte à été crée !"; 
             header('Location: connexion.php');
+            exit();
         }
     }
     else 
