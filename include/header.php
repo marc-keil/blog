@@ -27,8 +27,8 @@
                                 </div>
                             </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#">Inscription</a></li>
-                    <li class="nav-item"><a class="nav-link " href="#">Connexion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="inscription.php">Inscription</a></li>
+                    <li class="nav-item"><a class="btn btn-primary " href="connexion.php">Connexion</a></li>
                 </ul>
             </nav>
         </div>
