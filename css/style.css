@@ -81,3 +81,8 @@ select {
     text-decoration: none; 
 }
 
+.alflex{
+    display: flex;
+    justify-content: right;
+    flex-direction: row;
+}
