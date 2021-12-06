@@ -57,7 +57,7 @@ if(isset($_POST['formconnexion']))
     <body>
     <header>
             <?php if (isset($_SESSION['login'])) {
-                    header('location : profil.php');
+                    include_once('include/headerOnline.php');
                 } 
                 else{
                     include_once('include/header.php'); 
