@@ -14,25 +14,33 @@
         <div id="" class="container">
             <h1>Le plus beau des blogs</h1>
             <nav>
-                <ul class="nav nav-tabs">
-                    <li class="nav-item"><a class="nav-link" href="index.php">Accueil</a></li>
-                    <li>
-                            <div class="dropdown">
-                                <a class="">Articles</a>
-                                <div class="dropdown-content">
-                                    <a href="#">Catégorie 1</a>
-                                    <a href="#">Catégorie 2</a>
-                                    <a href="#">Catégorie 3</a>
-                                </div>
+                <tr class="nav nav-tabs">
+                    <td class="nav-item">
+                        <a class="nav-link" href="index.php">
+                            Accueil
+                        </a>
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <a class="nav-link">Articles</a>
+                            <div class="dropdown-content">
+                                <a href="#">Catégorie 1</a>
+                                <a href="#">Catégorie 2</a>
+                                <a href="#">Catégorie 3</a>
                             </div>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="profil.php">Votre Profil</a></li>
-                    <li>
-                <form class="ml-5 my-2 d-flex align-items-center" action="" method="get">
-                    <input class="btn btn-primary " name="off" type="submit" value="Se déconnecter">
-                </form>
-                    </li>
-                </ul>
+                        </div>
+                    </td>
+²   <td class="nav-item">
+                        <a class="nav-link" href="profil.php">
+                            Votre Profil
+                        </a>
+                    </td>
+                    <td>
+                        <form class="ml-5 my-2 d-flex align-items-center" action="" method="get">
+                            <input class="btn btn-primary " name="off" type="submit" value="Se déconnecter">
+                        </form>
+                    </td>
+                </tr>
             </nav>
         </div>
     </div>
@@ -46,8 +54,6 @@ if (isset($_GET['off'])) {
 
     session_destroy();
     header('location: index.php');
-    
-    
 }
 
 ?>

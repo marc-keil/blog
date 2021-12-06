@@ -15,20 +15,31 @@
             <h1 class="text-light">Le plus beau des blogs</h1>
             <nav class="alflex">
                 <tr class="nav nav-tabs">
-                    <td class="nav-item"><a class="nav-link" href="index.php">Accueil</a></td>
+                    <td class="nav-item">
+                        <a class="nav-link" href="index.php">
+                            Accueil
+                        </a>
+                    </td>
                     <td>
-                            <div class="dropdown">
-                                <a class="nav-link">Articles</a>
-                                <div class="dropdown-content">
-
-                                    <a href="#">Catégorie 1</a>
-                                    <a href="#">Catégorie 2</a>
-                                    <a href="#">Catégorie 3</a>
-                                </div>
+                        <div class="dropdown">
+                            <a class="nav-link">
+                                Articles
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="#">Catégorie 1</a>
+                                <a href="#">Catégorie 2</a>
+                                <a href="#">Catégorie 3</a>
                             </div>
-</td>
-                    <td class="nav-item"><a class="nav-link" href="inscription.php">Inscription</a></td>
-                    <td class="nav-item"><a class="btn btn-primary " href="connexion.php">Connexion</a></td>
+                        </div>
+                    </td>
+                    <td class="nav-item"><a class="nav-link" href="inscription.php">
+                            Inscription
+                        </a>
+                    </td>
+                    <td class="nav-item"><a class="btn btn-primary " href="connexion.php">
+                            Connexion
+                        </a>
+                    </td>
                 </tr>
             </nav>
         </div>
