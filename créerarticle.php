@@ -28,15 +28,13 @@ else
             $commentaire = htmlspecialchars($_POST['article']);
             $postage = $bdd->prepare('INSERT INTO commentaires (id_utilisateur, commentaire, date) VALUES (?,?, NOW())');
             $postage->execute(array($getid,$commentaire));
-            $c_msg = "<span style='color:green'>Votre commentaire a bien été posté</span><br><br>";
-            header("Location: livreor.php");
+            $a_msg = "<span style='color:green'>Votre article a bien été posté</span><br><br>";
             unset($_POST);
-
         }
         }
         else
         {
-            $c_msg = "Champs vide";
+            $a_msg = "Champs vide";
             unset($_POST);
         }
         
@@ -64,6 +62,14 @@ else
                 ?>
     </header>
 <main>
+    <form method="POST">
+        Votre pseudo : <?php echo $infoutilisateur['login'] ?><br><br>
+        <input type="text" placeholder="Votre login" name="login" id="login" value="<?php if(isset($login)) { echo $login; } ?>" >
+        <textarea name="article" placeholder="Votre article..." style="width: 300px; height: 100px"></textarea><br /><br>
+        <input type="submit" value="Poster mon article" name="submit_article"/>
+    </form>
+<br>
+    <?php if(isset($a_msg)) { echo $a_msg; } ?>
 </main>
 <footer>
         <?php
