@@ -1,17 +1,17 @@
 <?php
 session_start();
 require('config/bdd.php');
-if(isset($_SESSION['id']) && $_SESSION['id'] > 0)
-{
+if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
     $getid = intval($_SESSION['id']); // Convertie ma valeur en int ( ID = un numéro )
     $requtilisateur = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?'); // créer une requete qui va récuperer tout de mon utilisateur de mon id actuel
     $requtilisateur->execute(array($getid)); // return le tableau de mon utilisateur
     $infoutilisateur = $requtilisateur->fetch(); // récupere les informations que j'appelle
 }
-?> 
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,34 +20,35 @@ if(isset($_SESSION['id']) && $_SESSION['id'] > 0)
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Profil</title>
 </head>
+
 <body>
     <header>
-            <?php if (isset($_SESSION['login'])) {
-                    include_once("include/headeronline.php");
-                } 
-                else{
-                    header('location: connexion.php'); 
-                    exit;
-                }
-                ?>
-    </header>
-<main>
-    <h2>Profil de <?php echo $infoutilisateur['login'] ?> </h2>
-    <br /><br />
-    Login = <?php echo $infoutilisateur['login'] ?>
-    <br /><br />
-    <br /><br />
-    Email = <?php echo $infoutilisateur['email'] ?>
-    <br /><br />
-    <a class="profila" href="editionprofil.php"> Editer son profil</a>
-    <br /><br />
-
-</main>
-
-<footer>
-        <?php
-        include_once('include/footer.php'); 
+        <?php if (isset($_SESSION['login'])) {
+            include_once("include/headeronline.php");
+        } else {
+            header('location: connexion.php');
+            exit;
+        }
         ?>
-</footer>
+    </header>
+    <main>
+        <h2>Profil de <?php echo $infoutilisateur['login'] ?> </h2>
+        <br /><br />
+        Login = <?php echo $infoutilisateur['login'] ?>
+        <br /><br />
+        <br /><br />
+        Email = <?php echo $infoutilisateur['email'] ?>
+        <br /><br />
+        <a class="profila" href="editionprofil.php"> Editer son profil</a>
+        <br /><br />
+
+    </main>
+
+    <footer>
+        <?php
+        include_once('include/footer.php');
+        ?>
+    </footer>
 </body>
+
 </html>

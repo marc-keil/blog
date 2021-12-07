@@ -11,4 +11,3 @@ function connexion(){
 }
 }
 $bdd = connexion();
-?>
