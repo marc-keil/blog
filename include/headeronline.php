@@ -33,8 +33,8 @@
                         </div>
                     </td>
                     <td class="nav-item">
-                        <a class="nav-link" href="inscription.php">
-                            Inscription
+                        <a class="nav-link" href="profil.php">
+                            Profil
                         </a>
                     </td>
                     <td class="nav-item">
