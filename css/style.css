@@ -1,20 +1,12 @@
+/* BODY */
+#crbody{
+    /* background-color: chartreuse; */
+}
+/* HEADER */
 #fondHead{
     background-image: url(../images/fondHead.gif);
     
-}
-.space{
-
-    display: flex;
-    justify-content: space-evenly;
-    
-}
-select {
-    margin: 0;
-    padding-left: 15px;
-    color: #555555;
-    cursor: pointer;
-    }
-    
+}   
     .dropdown {
         position: relative;
         display: inline-block;
@@ -34,30 +26,110 @@ select {
         text-decoration: none;
         display: block;
     }
-    
+.dropdown:hover .dropdown-content {
+        display: block;
+}
 
-    .dropdown:hover .dropdown-content {display: block;}
+/* MAIN */
+main{
+    height: 32em;
+    background-color: rgba(0, 0, 0, 0.835);
+}
+
+/* INSCRIPTION */
+#crdivinscription{
+    /* background-color: chartreuse; */
+}
+#crforminscription{
+    display: flex;
+    justify-content: center;
+}
+#crh2inscription{
+    display: flex;
+    justify-content: center;
+}
+#crtableinscription{
+    display: flex;
+    justify-content: center;
+}
+
+#crtdsubmit{
+    display: flex;
+    justify-content: center;
+    width: 136em;
+}
+#crtablesubmit{
+    margin-top: 3em;
+}
+#crsubmitinscription{
+    font-size: 1.5em;
+}
+.crtd{
+    font-size: 1.5em;
+}
+
+/* CONNEXION */
+#crdivconnexion{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: cornflowerblue; */
+}
+#crh2connexion{
+    display: flex;
+    justify-content: center;
+    /* background-color: chartreuse; */
+}
+#crforconnexion{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: darkgoldenrod; */
+}
+input{
+    display: flex;
+    justify-content: center;
+}
+.crtdco{
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+}
+#crinputco{
+    font-size: 1em;
+    margin-top: 3em;
+}
+
+/* FOOTER */
+.crmargin{   
+    margin-bottom: 4%;
+}
 #crfootdiv1{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    background-color:gray;
+    background-color:black;
+    height: 33em;
 }
 .crfootdiv2{
+    margin-top: 2em;
     width: 19em;
     height: 22em;
-    background-color:red;
 }
 .crfootul{
     list-style:none;
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
+    margin-top: 2em;
 }
 .crfooth2{
     margin-right: 2em;
     display: flex;
     justify-content: center;
-    background-color:greenyellow;
+    color: white;
+}
+.crfooterhr{
+    color: white;
 }
 .crfootli{
     margin-right: 2em;
@@ -65,15 +137,12 @@ select {
     justify-content: center;
     font-size: 1.5em;
     text-decoration: none; 
-
 }
 .crimgfoot1 {
-
     width: 2em;
     height: 2em;
 }
 .crimgfoot2 {
-
     width: 2em;
     height: 2em;
 }
