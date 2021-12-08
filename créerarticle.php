@@ -77,11 +77,6 @@ else
         <input type="text" placeholder="Titre" name="titre" id="titre" value="<?php if(isset($titre)) { echo $titre; } ?>" ><br><br>
         <select name="select" id="select">
       <?php while($lis = $listecate->fetch()) { ?>
-<<<<<<< HEAD
-
-=======
-                    
->>>>>>> marc
                     <option><?= $lis['nom'] ?></option>
         <?php } ?>
           </select><br><br>
