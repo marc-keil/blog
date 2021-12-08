@@ -70,44 +70,52 @@ if (isset($_POST['forminscription'])) {
         ?>
     </header>
     <main>
-        <h2>Remplissez notre formulaire d'inscription</h2>
+        <h2 id="crh2inscription" class="text-light"> Remplissez notre formulaire d'inscription</h2>
         <br /><br />
         <form method="POST" action="">
-            <table>
-                <tr class=test>
-                    <td align="right">
-                        <label for="login">Login : </label>
+            <table id="crtableinscription">
+                <tr>
+                    <td class="text-light" align="right">
+                        <label class="crlabelinscription" for="login">Login : </label>
                     </td>
                     <td>
-                        <input type="text" placeholder="Votre login" name="login" id="login" value="<?php if (isset($login)) {
-                                                                                                        echo $login;
-                                                                                                    } ?>">
+                        <input class="crinputinscription" type="text" placeholder="Votre login" name="login" id="login" value="<?php if (isset($login)) {
+                                                                                                                                    echo $login;
+                                                                                                                                } ?>">
                     </td>
                 </tr>
-                <td class=test align="right">
-                    <label for="email">Email : </label>
-                </td>
-                <td>
-                    <input type="email" placeholder="Votre email" name="email" id="email">
-                </td>
+                <tr>
+                    <td class="text-light" align="right">
+                        <label class="crlabelinscription" for="email">Email : </label>
+                    </td>
+                    <td>
+                        <input class="crinputinscription" t type="email" placeholder="Votre email" name="email" id="email">
+                    </td>
                 </tr>
-                <td class=test align="right">
-                    <label for="password">Password : </label>
-                </td>
-                <td>
-                    <input type="password" placeholder="Votre password" name="password" id="password">
-                </td>
+                <tr>
+                    <td class="text-light" align="right">
+                        <label class="crlabelinscription" for="password">Password : </label>
+                    </td>
+                    <td>
+                        <input class="crinputinscription" t type="password" placeholder="Votre password" name="password" id="password">
+                    </td>
                 </tr>
-                <td class=test align="right">
-                    <label for="password2">Confirmation du password : </label>
-                </td>
-                <td>
-                    <input type="password" placeholder="Confirmation password" name="password2" id="password2">
-                </td>
+                <tr>
+                    <td class="text-light" align="right">
+                        <label class="crlabelinscription" for="password2">Confirmation du password : </label>
+                    </td>
+                    <td>
+                        <input class="crinputinscription" t type="password" placeholder="Confirmation password" name="password2" id="password2">
+                    </td>
                 </tr>
+                </td>
+
+
+
             </table>
             <br />
-            <input type="submit" name="forminscription" class="forminscription" value="Je m'inscris"><br><BR><br>
+                        <input id="ee" class="btn btn-primary" t type="submit" name="forminscription" class="forminscription" value="Je m'inscris"><br><BR><br>
+
         </form>
         <?php
         if (isset($erreur)) {
