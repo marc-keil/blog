@@ -85,7 +85,7 @@ if (isset($_POST['forminscription'])) {
                         <label class="text-light" for="login">Login : </label>
                     </td>
                     <td class="crtd">
-                        <input type="text" placeholder="Votre login" name="login" id="login" value="<?php if (isset($login)) {
+                        <input class="crinputinscription" type="text" placeholder="Votre login" name="login" id="login" value="<?php if (isset($login)) {
                                                                                                         echo $login;
                                                                                                     } ?>">
                     </td>
@@ -96,7 +96,7 @@ if (isset($_POST['forminscription'])) {
                         <label class="text-light" for="email">Email : </label>
                     </td>
                     <td class="crtd">
-                        <input type="email" placeholder="Votre email" name="email" id="email">
+                        <input class="crinputinscription" type="email" placeholder="Votre email" name="email" id="email">
                     </td>
                 </tr>
                 
@@ -105,7 +105,7 @@ if (isset($_POST['forminscription'])) {
                         <label class="text-light" for="password">Password : </label>
                     </td>
                     <td class="crtd" align="right">
-                        <input type="password" placeholder="Votre password" name="password" id="password">
+                        <input class="crinputinscription" type="password" placeholder="Votre password" name="password" id="password">
                     </td>
                 </tr>
 
@@ -114,7 +114,7 @@ if (isset($_POST['forminscription'])) {
                     <label class="text-light" for="password2">Confirmation du password : </label>
                 </td>
                 <td class="crtd">
-                    <input type="password" placeholder="Confirmation password" name="password2" id="password2">
+                    <input class="crinputinscription" type="password" placeholder="Confirmation password" name="password2" id="password2">
                 </td>
                 </tr>
 

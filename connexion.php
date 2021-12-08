@@ -68,7 +68,7 @@ if (isset($_POST['formconnexion'])) {
                 <table>
                     <tr>
                         <td class="crtdco">
-                            <label for="loginconnect">Login :</label>
+                            <label class="text-light" for="loginconnect">Login :</label>
                         </td>
                         <td class="crtdco">
                             <input type="text" name="loginconnect" placeholder="Votre Login"> 
@@ -76,7 +76,7 @@ if (isset($_POST['formconnexion'])) {
                     </tr>
                     <tr>
                         <td class="crtdco">
-                            <label for="password">Password :</label>
+                            <label class="text-light" for="password">Password :</label>
                         </td>
                         <td class="crtdco">
                             <input type="password" name="passwordconnect" placeholder="Votre Password">
