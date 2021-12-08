@@ -49,25 +49,49 @@ if (isset($_POST['formconnexion'])) {
 
 <body>
     <header>
-        <?php if (isset($_SESSION['login'])) {
-            include_once('include/headerOnline.php');
-        } else {
+        <?php 
             include_once('include/header.php');
-        }
+        
         ?>
     </header>
 
     <main>
-        <h2>Connexion</h2>
         <br /><br />
-        <form method="POST" action="" class="patate">
-            <label for="loginconnect">Login :</label><br>
-            <input type="text" name="loginconnect" placeholder="Login"><BR><BR>
-            <label for="password">Password :</label><br>
-            <input type="password" name="passwordconnect" placeholder="Password">
-            <br /><br />
-            <input type="submit" name="formconnexion" class="formconnexion" value="Se connecter !"><br><BR><br>
-        </form>
+        <div id="crdivconnexion">
+            <div id="crh2connexion">
+                <h2 class="text-light">Connexion</h2>
+            </div>
+
+            <form method="POST" action="" id="crforconnexion">
+                <table>
+                    <tr>
+                        <td class="crtdco">
+                            <label for="loginconnect">Login :</label>
+                        </td>
+                        <td class="crtdco">
+                            <input type="text" name="loginconnect" placeholder="Votre Login">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="crtdco">
+                            <label for="password">Password :</label>
+                        </td>
+                        <td class="crtdco">
+                            <input type="password" name="passwordconnect" placeholder="Votre Password">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="crtdco">
+                            <input class="btn btn-primary" type="submit" name="formconnexion" id="crinputco" value="Se connecter !">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+
+
+
         <?php
         if (isset($erreur)) {
             echo '<font color="red">' . $erreur . '</font><br><br>';
