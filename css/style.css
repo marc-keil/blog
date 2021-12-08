@@ -6,7 +6,9 @@
   position: relative;
   display: inline-block;
 }
-
+/* a{
+  font-size: 120%;
+} */
 .dropdown-content {
   display: none;
   position: absolute;

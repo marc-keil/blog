@@ -32,7 +32,7 @@
                             </div>
                         </div>
                     </td>
-                    <td class="nav-item"><a class="nav-link" href="inscription.php">
+                    <td class="nav-item"><a class="nav-link " href="inscription.php">
                             Inscription
                         </a>
                     </td>
