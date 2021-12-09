@@ -64,8 +64,8 @@ if (isset($_SESSION['login']) == false) // ID a changer a modérateur et admin
             ?>
         </header>
         <main id="crmaincreer">
-            <form method="POST">
-                Votre pseudo : <?php echo $infoutilisateur['login'] ?><br><br>
+            <form id="crformcreer" method="POST">
+                <p class="text-light"> Votre pseudo : <?php echo $infoutilisateur['login'] ?></p><br><br>
                 <input type="text" placeholder="Titre" name="titre" id="titre" value="<?php if (isset($titre)) {
                                                                                             echo $titre;
                                                                                         } ?>"><br><br>

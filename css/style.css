@@ -61,7 +61,7 @@
 
 /* MAIN */
 main{
-  height: 32em;
+  /* height: 32em; */
   background-color: rgba(0, 0, 0, 0.835);
 }
 
@@ -140,16 +140,55 @@ input{
   margin-top: 3em;
 }
 
+/* PROFIL */
+#crdivprofil{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    /* background-color: white; */
+}
+
+/* EDITION PROFIL */
+#crdivedition{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+}
+.crtdedition{
+    margin-left: 1em;
+}
+#crinputedition{
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    font-size: 1.5em;
+    margin-left: 43em;
+    background-color: blue;
+}
+
 /* CREER ARTICLE */
 #crmaincreer{
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    background-color: white;
+    /* width: 12em;
+    height:12em; */
+    /* background-color: white; */
 }
-form{
+#crformcreer{
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    background-color: white;
+    /* background-color: white; */
+    align-items: center;
+    font-size: 1.5em;
+}
+.crtdinscription{
+    margin-top: 1em;
 }
 
 /* FOOTER */
@@ -161,12 +200,13 @@ form{
   flex-direction: row;
   justify-content: space-evenly;
   background-color:black;
-  height: 33em;
+  height:40em;
 }
 .crfootdiv2{
   margin-top: 2em;
   width: 19em;
   height: 22em;
+  text-decoration: none; 
 }
 .crfootul{
   list-style:none;
@@ -189,6 +229,8 @@ form{
   display: flex;
   justify-content: center;
   font-size: 1.5em;
+}
+.crfoota{
   text-decoration: none; 
 }
 .crimgfoot1 {
