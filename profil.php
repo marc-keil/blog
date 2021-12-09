@@ -32,15 +32,17 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
         ?>
     </header>
     <main>
-        <h2>Profil de <?php echo $infoutilisateur['login'] ?> </h2>
-        <br /><br />
-        Login = <?php echo $infoutilisateur['login'] ?>
-        <br /><br />
-        <br /><br />
-        Email = <?php echo $infoutilisateur['email'] ?>
-        <br /><br />
-        <a class="profila" href="editionprofil.php"> Editer son profil</a>
-        <br /><br />
+        <div id="crdivprofil">
+            <h2 class="text-light">Profil de <?php echo $infoutilisateur['login'] ?> </h2>
+            <br /><br />
+            <p class="text-light"> Login = <?php echo $infoutilisateur['login'] ?></p>
+            <br /><br />
+            <br /><br />
+            <p class="text-light"> Email = <?php echo $infoutilisateur['email'] ?></p>
+            <br /><br />
+            <a class="profila" href="editionprofil.php"> Editer son profil</a>
+            <br /><br />
+        </div>
 
     </main>
 
