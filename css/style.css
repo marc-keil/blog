@@ -142,14 +142,13 @@ input{
 
 /* CREER ARTICLE */
 #crmaincreer{
-    display: flex;
-    justify-content: center;
     background-color: white;
 }
 form{
     display: flex;
     justify-content: center;
     background-color: white;
+    font-size: 3em;
 }
 
 /* FOOTER */
