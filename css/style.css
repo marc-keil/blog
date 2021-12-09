@@ -140,6 +140,18 @@ input{
   margin-top: 3em;
 }
 
+/* CREER ARTICLE */
+#crmaincreer{
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+form{
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+
 /* FOOTER */
 .crmargin{   
   margin-bottom: 4%;
