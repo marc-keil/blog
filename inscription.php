@@ -14,6 +14,7 @@ if (isset($_POST['forminscription'])) {
         $loginlenght = strlen($login);
         $passwordlenght = strlen($password);
         $password2lenght = strlen($password2);
+        $id_droits= 1;
 
         $requetelogin = $bdd->prepare("SELECT * FROM utilisateurs WHERE login = ?"); // SAVOIR SI LE MEME LOGIN EST PRIS
         $requetelogin->execute(array($login));
@@ -37,8 +38,8 @@ if (isset($_POST['forminscription'])) {
 
         if ($erreur == "") {
             $hachage = password_hash($password, PASSWORD_BCRYPT);
-            $insertmbr = $bdd->prepare("INSERT INTO utilisateurs(login, password, email) VALUES(?,?,?)"); // Prépare une requête à l'exécution et retourne un objet (PDO)
-            $insertmbr->execute(array($login, $hachage, $email)); // Exécute une requête préparée PDO
+            $insertmbr = $bdd->prepare("INSERT INTO utilisateurs(id_droits,login, password, email) VALUES(?,?,?,?)"); // Prépare une requête à l'exécution et retourne un objet (PDO)
+            $insertmbr->execute(array($id_droits,$login, $hachage, $email)); // Exécute une requête préparée PDO
             $erreur = "Votre compte à été crée !";
             header('Location: connexion.php');
             exit();
