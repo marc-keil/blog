@@ -3,10 +3,10 @@ require('config/bdd.php');
 session_start();
 
 
-if (!isset($_SESSION['id'])) // ID a changer a modérateur et admin
+if (isset($_SESSION['login']) == false) // ID a changer a modérateur et admin
 {
-    header('location : connexion.php');
-    exit();
+    exit;
+    
 } else {
 
     $listecate = $bdd->query('SELECT * FROM categories ORDER BY id ASC');
