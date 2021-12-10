@@ -36,7 +36,7 @@
             <li class="crfootli"><a class="crfoota" href="connexion.php">connexion</a></li>
             <li class="crfootli"><a class="crfoota" href="inscription.php">Inscription</a></li>
             <li class="crfootli"><a class="crfoota" href="profil.php">Profil</a></li>
-            <li class="crfootli"><a class="crfoota" href="crérarticle.php">Créer Articles</a></li>
+            <li class="crfootli"><a class="crfoota" href="créerarticle.php">Créer Articles</a></li>
         </ul>
     </div>
 </div>
