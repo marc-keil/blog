@@ -19,6 +19,7 @@ if (isset($_POST['formconnexion'])) {
             if (password_verify($passwordconnect, $sqlPassword)) // Si passwordconnect est hashé et qu'il est pareil que sql password c'est bon 
             {
                 $_SESSION['id'] = $result[0]['id'];
+                $_SESSION['id_droits'] = $result[0]['id_droits'];
                 $_SESSION['login'] = $result[0]['login'];
                 $_SESSION['email'] = $result[0]['email'];
                 header("Location: profil.php");
@@ -49,9 +50,9 @@ if (isset($_POST['formconnexion'])) {
 
 <body>
     <header>
-        <?php 
-            include_once('include/header.php');
-        
+        <?php
+        include_once('include/header.php');
+
         ?>
     </header>
 

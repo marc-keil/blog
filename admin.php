@@ -2,20 +2,22 @@
 session_start();
 require('config/bdd.php');
 
+$utilisateurs = $bdd->query('SELECT * FROM utilisateurs ORDER BY id ASC');
 
-if (!isset($_SESSION['id']) ||  $_SESSION['id'] != 42 || $_SESSION['id'] != 1337) // ID a changer a modérateur et admin
+// ID nécessaire pour la connexion 
+if (!isset($_SESSION['id']) ||  $_SESSION['id_droits'] != 42 || $_SESSION['id_droits'] != 1337) 
 {
+    header("Location: profil.php");
     exit();
 }
 
-
-if (isset($_GET['supprimer']) && !empty($_GET['supprimer'])) {
+// Fonction supprimé un utilisateur
+if (isset($_GET['supprimer']) && !empty($_GET['supprimer'])) 
+{
     $supprimer = (int) $_GET['supprimer'];
     $req = $bdd->prepare('DELETE FROM utilisateurs WHERE id = ?');
     $req->execute(array($supprimer));
 }
-
-$utilisateurs = $bdd->query('SELECT * FROM utilisateurs ORDER BY id ASC');
 
 ?>
 
@@ -39,15 +41,15 @@ $utilisateurs = $bdd->query('SELECT * FROM utilisateurs ORDER BY id ASC');
     </header>
 
     <main>
-        <div align=center>
-            <table border=1><br>
                 <h2>Espace Administrateur</h2>
                 <br />
+            <table>
                 <thead>
                     <tr class=test>
                         <th class=test>ID</th>
                         <th class=test>Login</th>
                         <th class=test>Email</th>
+                        <th class=test>Droits</th>
                         <th class=test>Action</th>
                     </tr>
                 </thead>
@@ -56,16 +58,12 @@ $utilisateurs = $bdd->query('SELECT * FROM utilisateurs ORDER BY id ASC');
                         <td class=test><?= $u['id'] ?> </td>
                         <td class=test><?= $u['login'] ?> </td>
                         <td class=test><?= $u['email'] ?> </td>
+                        <td class=test><?= $u['id_droits'] ?> </td>
                         <td class=test><a class=testad href="administration.php?supprimer=<?= $u['id'] ?>">Supprimer</a></td>
                     </tr>
-
                 <?php } ?>
             </table>
             <br>
-            <form method="POST" action="profil.php">
-                <input type="submit" class="formconnexion" name="Retour" value="Retour"><br><br><br>
-            </form>
-
     </main>
     <footer>
         <?php
