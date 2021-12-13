@@ -91,15 +91,15 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
                                 <label class="text-light" for="login">Login :</label>
                             </td>
                             <td>
-                                <input class="crtdedition" type="text" name="newlogin" placeholder="Login" value="<?php echo $infoutilisateur['login']; ?>">
+                                <input class="crtdedition" id="login" type="text" name="newlogin" placeholder="Login" value="<?php echo $infoutilisateur['login']; ?>">
                             </td>
                         </tr>
                         <tr class="crtdinscription">
                             <td align="right">
-                                <label class="text-light" for="login">Email :</label>
+                                <label class="text-light" for="email">Email :</label>
                             </td>
                             <td class=test>
-                                <input class="crtdedition" type="text" name="newemail" placeholder="Email" value="<?php echo $infoutilisateur['email']; ?>">
+                                <input class="crtdedition" id="email" type="text" name="newemail" placeholder="Email" value="<?php echo $infoutilisateur['email']; ?>">
                             </td>
                         </tr>
                         <tr class="crtdinscription">
@@ -107,7 +107,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
                                 <label class="text-light" for="newmdp">Password :</label>
                             </td>
                             <td>
-                                <input class="crtdedition" type="password" name="newmdp" placeholder="Mot de passe">
+                                <input class="crtdedition" id="newmdp" type="password" name="newmdp" placeholder="Mot de passe">
                             </td>
                         </tr>
                         <tr class="crtdinscription">
@@ -115,7 +115,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
                                 <label class="text-light" for="newmdp2">Confirmation du password :</label>
                             </td>
                             <td>
-                                <input class="crtdedition" type="password" name="newmdp2" placeholder="Confirmation mot de passe">
+                                <input class="crtdedition" type="password" id="newmdp2" name="newmdp2" placeholder="Confirmation mot de passe">
                             </td>
                         </tr>
                     </table>

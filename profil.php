@@ -39,6 +39,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
             <br /><br />
             <br /><br />
             <p class="text-light"> Email = <?php echo $infoutilisateur['email'] ?></p>
+
             <br /><br />
             <a class="profila" href="editionprofil.php"> Editer son profil</a>
             <br /><br />
