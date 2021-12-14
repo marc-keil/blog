@@ -1,13 +1,20 @@
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<title>Index</title>
+<?php session_start();
+require_once("config/bdd.php");
+
+?>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Index</title>
 </head>
 
 <body>
     <header>
-        <?php if (isset($_SESSION['login'])) {
-            include_once("include/headerOnline.php");
+        <?php
+        if (isset($_SESSION['login'])) { // si le gadjo est co 
+            include_once("include/headeronline.php"); //tu mets ça
         } else {
-            include_once('include/header.php');
+            include_once('include/header.php'); //sinon ça 
         }
         ?>
     </header>
