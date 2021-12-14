@@ -6,6 +6,7 @@ $utilisateurs = $bdd->query('SELECT utilisateurs.`id` as idu, `login`, `password
 $listedroits = $bdd->query('SELECT * FROM droits');
 $lis = $listedroits->fetchAll();
 
+
 // ID nécessaire pour la connexion 
 if (!isset($_SESSION['id']) || $_SESSION['id_droits'] != 1337) {
     header("Location: profil.php");
@@ -23,6 +24,7 @@ if (isset($_GET['supprimer']) && !empty($_GET['supprimer'])) {
 
 // Fonction Modifié le login d'un utilisateur
 if (isset($_POST['newlogin']) && !empty($_POST['newlogin'])) {
+    $idchange = $_POST['id'];
     $login = $_POST['newlogin'];
     $requetelogin = $bdd->prepare("SELECT * FROM utilisateurs WHERE login = ?"); // SAVOIR SI LE MEME LOGIN EST PRIS
     $requetelogin->execute(array($login));
@@ -31,7 +33,6 @@ if (isset($_POST['newlogin']) && !empty($_POST['newlogin'])) {
     if ($loginexist !== 0) {
         $msg = "Le login existe déjà !";
     } else {
-        $idchange = $_POST['id'];
         $newlogin = htmlspecialchars($_POST['newlogin']);
         $insertlogin = $bdd->prepare("UPDATE utilisateurs SET login = ? WHERE id = ?");
         $insertlogin->execute(array($newlogin, $idchange));
@@ -39,6 +40,36 @@ if (isset($_POST['newlogin']) && !empty($_POST['newlogin'])) {
         exit();
     }
 }
+// Fonction modifié l'email d'un utilisateur 
+if (isset($_POST['newmail']) && !empty($_POST['newmail'])) {
+    $idchange = $_POST['id'];
+    $email = $_POST['newmail'];
+    $requetemail = $bdd->prepare("SELECT * FROM utilisateurs WHERE email = ?"); // SAVOIR SI LE MEME LOGIN EST PRIS
+    $requetemail->execute(array($email));
+    $emailexist = $requetemail->rowCount(); // rowCount = Si une ligne existe = PAS BON
+
+    if ($emailexist !== 0) {
+        $msg = "L'email existe déjà !";
+    } else {
+
+        $newmail = htmlspecialchars($_POST['newmail']);
+        $insertlogin = $bdd->prepare("UPDATE utilisateurs SET email = ? WHERE id = ?");
+        $insertlogin->execute(array($newmail, $idchange));
+        header('Location: admin.php');
+        exit();
+    }
+}
+// Fonction modifié le rang d'un utilisateur
+if (isset($_POST['select'])) {
+
+    $idchange = $_POST['id'];
+    $rang = $_POST['select'];
+    $changerrang = $bdd->prepare("UPDATE utilisateurs SET id_droits = ? WHERE id = ?");
+    $changerrang->execute(array($rang,$idchange));
+    header('Location: admin.php');
+    exit();
+}
+
 
 ?>
 
@@ -77,19 +108,16 @@ if (isset($_POST['newlogin']) && !empty($_POST['newlogin'])) {
             <?php while ($u = $utilisateurs->fetch()) { ?>
                 <form method="POST">
 
-                <input id="id" type="hidden" name="id" value="<?php echo $u['idu']; ?>">
+                    <input id="id" type="hidden" name="id" value="<?php echo $u['idu']; ?>">
                     <label class="text-light" for="newlogin"></label>
                     <td><input class="crtdedition" id="newlogin" type="text" name="newlogin" value="<?php echo $u['login']; ?>"></td>
                     <label class="text-light" for="newmail"></label>
                     <td><input class="crtdedition" id="newmail" type="mail" name="newmail" value="<?php echo $u['email']; ?>"></td>
                     <td>
                         <select name="select" id="select">
-                            <?php foreach ($lis as $key => $value) {
-                                if ($u['id_droits'] == $value['id']) { ?>
-                                    <option selected><?= $value['nom'] ?></option>
-                                <?php } else { ?>
-                                    <option><?= $value['nom'] ?></option>
-                            <?php }
+                            <?php foreach ($lis as $key => $value) { ?>
+                                <option <?= $u['id_droits'] == $value['id'] ? "selected":NULL ?> value="<?= $value['id'] ?>"><?= $value['nom'] ?></option>
+                            <?php
                             } ?>
                         </select>
                     </td>
@@ -103,10 +131,10 @@ if (isset($_POST['newlogin']) && !empty($_POST['newlogin'])) {
 
         <br>
         <?php
-            if (isset($msg)) {
-                echo '<font color="red">' . $msg . '</font><br /><br />';
-            }
-            ?>
+        if (isset($msg)) {
+            echo '<font color="red">' . $msg . '</font><br /><br />';
+        }
+        ?>
     </main>
     <footer>
         <?php
