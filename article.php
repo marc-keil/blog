@@ -13,7 +13,9 @@ require_once('config/bdd.php');
 </head>
 
 <body>
+<main>
 
+</main>
 </body>
 
 </html>
