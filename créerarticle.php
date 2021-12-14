@@ -3,7 +3,7 @@ require('config/bdd.php');
 session_start();
 
 
-if (isset($_SESSION['login']) == false) // ID a changer a modérateur et admin
+if (isset($_SESSION['login']) != 1337 || isset($_SESSION['login']) != 42) // ID a changer a modérateur et admin
 {
     exit;
     

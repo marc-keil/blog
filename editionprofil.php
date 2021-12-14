@@ -126,7 +126,6 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
                 echo '<font color="red">' . $msg . '</font><br /><br />';
             }
             ?>
-            <form method="POST" action="">
                 <input id="crinputedition" type="submit" class="formconnexion" name="confirmation" value="Confirmé !">
             </form>
             <br><br>
