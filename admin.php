@@ -21,6 +21,25 @@ if (isset($_GET['supprimer']) && !empty($_GET['supprimer'])) {
     exit();
 }
 
+// Fonction Modifié le login d'un utilisateur
+if (isset($_POST['newlogin']) && !empty($_POST['newlogin'])) {
+    $login = $_POST['newlogin'];
+    $requetelogin = $bdd->prepare("SELECT * FROM utilisateurs WHERE login = ?"); // SAVOIR SI LE MEME LOGIN EST PRIS
+    $requetelogin->execute(array($login));
+    $loginexist = $requetelogin->rowCount(); // rowCount = Si une ligne existe = PAS BON
+
+    if ($loginexist !== 0) {
+        $msg = "Le login existe déjà !";
+    } else {
+        $idchange = $_POST['id'];
+        $newlogin = htmlspecialchars($_POST['newlogin']);
+        $insertlogin = $bdd->prepare("UPDATE utilisateurs SET login = ? WHERE id = ?");
+        $insertlogin->execute(array($newlogin, $idchange));
+        header('Location: admin.php');
+        exit();
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +49,7 @@ if (isset($_GET['supprimer']) && !empty($_GET['supprimer'])) {
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>Espace Administrateur</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body>
@@ -48,7 +68,6 @@ if (isset($_GET['supprimer']) && !empty($_GET['supprimer'])) {
         <table>
             <thead>
                 <tr class=test>
-                    <th class=test>ID</th>
                     <th class=test>Login</th>
                     <th class=test>Email</th>
                     <th class=test>Droits</th>
@@ -56,9 +75,9 @@ if (isset($_GET['supprimer']) && !empty($_GET['supprimer'])) {
                 </tr>
             </thead>
             <?php while ($u = $utilisateurs->fetch()) { ?>
-                <form method="GET">
+                <form method="POST">
 
-                    <td class=test><?= $u['idu'] ?> </td>
+                <input id="id" type="hidden" name="id" value="<?php echo $u['idu']; ?>">
                     <label class="text-light" for="newlogin"></label>
                     <td><input class="crtdedition" id="newlogin" type="text" name="newlogin" value="<?php echo $u['login']; ?>"></td>
                     <label class="text-light" for="newmail"></label>
@@ -74,12 +93,20 @@ if (isset($_GET['supprimer']) && !empty($_GET['supprimer'])) {
                             } ?>
                         </select>
                     </td>
-                    <td class=test><a class=testad href="admin.php?supprimer=<?= $u['id'] ?>">Bannir</a></td>
+                    <td class=test><a class="btn btn-danger" href="admin.php?supprimer=<?= $u['idu'] ?>">Bannir</a></td>
+                    <td class=test><input id="" type="submit" class="btn btn-primary" name="submit" value="Confirmé !"></td>
                 </form>
                 </tr>
             <?php } ?>
         </table>
         <br>
+
+        <br>
+        <?php
+            if (isset($msg)) {
+                echo '<font color="red">' . $msg . '</font><br /><br />';
+            }
+            ?>
     </main>
     <footer>
         <?php
