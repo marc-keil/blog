@@ -235,6 +235,7 @@ if (isset($_POST['select'])) {
 
         </table>
         <br>
+
         <br>
         <?php
         if (isset($msg)) {
