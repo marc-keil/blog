@@ -1,12 +1,22 @@
 <?php session_start();
 require_once('config/bdd.php');
 
-$req = $bdd->prepare("SELECT * FROM articles ORDER BY id ASC");
-$req->execute(); 
-$articles = $req->fetchall();
+
+$reqCategorie = $bdd->prepare("SELECT * FROM categories");
+$reqCategorie->execute();
+$categories = $reqCategorie->fetchAll();
+
+$req = $bdd->prepare("SELECT * FROM articles  WHERE id_categorie = 1 ORDER BY id ASC ");
+$req->execute($id);
+if ($req->rowCount() == 1) {
+    $articles = $req->fetchAll();
+}
+
 
 
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -19,21 +29,21 @@ $articles = $req->fetchall();
 </head>
 
 <body>
-<main>
-<h1>Listes des articles</h1>
-<?php 
+    <main>
+        <h1>Listes des articles</h1>
+        <?php
 
-foreach($articles as $article){ ?>
-<section>
-<article>
-    <h1><?php echo $article["titre"];?></h1>
-    <p><?php echo $article["date"]; ?></p>
-    <div><?php echo $article["article"];  ?> </div>
-</article>
-</section>
+        foreach ($articles as $article) { ?>
+            <section>
+                <article>
+                    <h1><?php echo $article["titre"]; ?></h1>
+                    <p><?php echo $article["date"]; ?></p>
+                    <div><?php echo $article["article"];  ?> </div>
+                </article>
+            </section>
 
-<?php } ?>
-</main>
+        <?php } ?>
+    </main>
 </body>
 
 </html>
