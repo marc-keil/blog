@@ -64,6 +64,27 @@ main{
   /* height: 32em; */
   background-color: rgba(0, 0, 0, 0.835);
 }
+/* INDEX */ #crindexmain{ 
+  height: 32em; 
+} 
+.crindexdiv{ 
+  display: flex; 
+  justify-content: center; 
+} 
+#crindexh1{ 
+  font-size: 5em; 
+  font-family: 'Bungee Inline', cursive;
+  font-family: 'Convergence', sans-serif;
+}
+#crindexp{
+  font-size: 5em; 
+  font-family: 'Bungee Inline', cursive;
+  font-family: 'Convergence', sans-serif;
+}
+#crimgindexp{
+  width: 1em;
+  height: 1em;
+}
 
 /* INSCRIPTION */
 #crdivinscription{
