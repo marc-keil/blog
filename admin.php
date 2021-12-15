@@ -2,10 +2,16 @@
 session_start();
 require('config/bdd.php');
 
+$articles = $bdd->query('SELECT articles.`id` as ida, article, id_utilisateur, id_categorie, categories.nom, date, titre FROM articles INNER JOIN categories ON categories.id = articles.id_categorie ORDER BY articles.id ASC;');
+$listearticles = $bdd->query('SELECT * FROM articles');
+$lisar = $articles->fetchAll();
 $categories = $bdd->query('SELECT `id` as idc, `nom` FROM `categories`');
+$categoriess = $bdd->query('SELECT `id` as idc, `nom` FROM `categories`');
+$fetchcate = $categories->fetchAll();
 $utilisateurs = $bdd->query('SELECT utilisateurs.`id` as idu, `login`, `password`, `email`, `id_droits`,`nom` FROM `utilisateurs` INNER JOIN droits ON droits.id = utilisateurs.id_droits ORDER BY utilisateurs.id ASC;');
 $listedroits = $bdd->query('SELECT * FROM droits');
 $lis = $listedroits->fetchAll();
+
 
 
 // ID nécessaire pour la connexion 
@@ -39,8 +45,7 @@ if (isset($_POST['creercateg']) && !empty($_POST['creercateg'])) {
         $insertcateg->execute(array($creercategorie));
         header('Location: admin.php');
         exit();
-    } 
-
+    }
 }
 
 
@@ -182,28 +187,53 @@ if (isset($_POST['select'])) {
         <table>
             <thead>
                 <tr class=test>
-                    <th class=test>Catégories</th>
+                    <th class="text-light">Catégories</th>
 
                 </tr>
             </thead>
-            <?php while ($c = $categories->fetch()) { ?>
+            <?php while ($c = $categoriess->fetch()) { ?>
                 <form method="POST">
                     <input id="id" type="hidden" name="id" value="<?php echo $c['idc']; ?>">
                     <label class="text-light" for="newcateg"></label>
                     <td><input class="crtdedition" id="newcateg" type="text" name="newcateg" value="<?php echo $c['nom']; ?>"></td>
-                    <td class=test><a class="btn btn-danger" href="admin.php?supprimercateg=<?= $c['idc'] ?>">Supprimée la catégorie</a></td>
-                    <td class=test><input id="" type="submit" class="btn btn-primary" name="submit" value="Confirmé !"></td>
+                    <td class=test><a class="btn btn-danger" href="admin.php?supprimercateg=<?= $c['idc'] ?>">Supprimer la catégorie</a></td>
+                    <td class=test><input id="" type="submit" class="btn btn-primary" name="submit" value="Modifier"></td>
                 </form>
                 </tr>
             <?php } ?>
             <form method="POST">
-            <label class="mt-4 text-light" for="creercateg"></label>
-            <td><input class="mt-4 ms-3" id="creercateg" type="text" name="creercateg" value="Ajoutez un article..."></td>
-            <td class=test><input id="" type="submit" class="btn btn-primary mt-4 ms-3" name="submit" value="Confirmé !"></td>
+                <label class="mt-4 text-light" for="creercateg"></label>
+                <td><input class="mt-4 ms-3" id="creercateg" type="text" name="creercateg" placeholder="Ajoutez un article..."></td>
+                <td class=test><input id="" type="submit" class="btn btn-primary mt-4 ms-3" name="submit" value="Confirmé !"></td>
             </form>
         </table>
+        <table>
+            <thead>
+                <tr class=test>
+                    <th class="text-light">Articles</th>
+                </tr>
+            </thead>
+            <?php while ($a = $listearticles->fetch()) { ?>
+                <form method="POST">
+                    <input id="id" type="hidden" name="id" value="<?php echo $a['ida']; ?>">
+                    <label class="text-light" for="newcateg"></label>
+                    <td><input class="crtdedition" id="newcateg" type="text" name="newcateg" value="<?php echo $a['article']; ?>"></td>
+                    <td>
+                        <select name="selectc" id="selectc">
+                            <?php foreach ($fetchcate as $key => $value) { ?>
+                                <option <?= $a['id_categorie'] == $value['idc'] ? "selected" : NULL ?> value="<?= $value['idc'] ?>"><?= $value['nom'] ?></option>
+                            <?php
 
+                         } ?>
+                        </select>
+                    </td>
+                    <td class=test><a class="btn btn-danger" href="admin.php?supprimercateg=<?= $c['idc'] ?>">Supprimer l'article</a></td>
+                    <td class=test><input id="" type="submit" class="btn btn-primary" name="submit" value="Modifier"></td>
+                </form>
+                </tr>
+            <?php } ?>
 
+        </table>
         <br>
         <br>
         <?php
