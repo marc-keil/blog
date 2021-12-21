@@ -19,7 +19,7 @@ $categories = $req->fetchAll();
 </head>
 
 <body>
-    <div id="fondHead">
+    <div class="fixed-top" id="fondHead">
         <div id="" class="container">
             <h1 class="text-light">Le plus beau des blogs</h1>
             <nav class="alflex">
