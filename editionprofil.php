@@ -79,6 +79,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
             }
             ?>
         </header>
+        <div class="az">
         <main>
             <div id="crdivedition">
                 <h2 class="text-light">Edition de mon profil</h2>
@@ -131,6 +132,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
             <br><br>
             <a href="profil.php" class="formconnexion">Retour</a><br><br><br>
         </main>
+        </div>
         <footer>
             <?php
             include_once('include/footer.php');
