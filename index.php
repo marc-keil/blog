@@ -19,7 +19,7 @@ require_once("config/bdd.php");
         ?>
     </header>
     <main>
-        <h1>Alain</h1>
+        <h1>?</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor quo, nostrum error fugiat architecto, nam ipsam explicabo animi rerum odio officia aliquam? Dolore eum deserunt ullam dolores odit voluptatum eos?</p>
     </main>
     <footer>
