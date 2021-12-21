@@ -60,7 +60,7 @@
 }
 
 /* MAIN */
-main{
+.az{
   /* height: 32em; */
   background-color: rgba(0, 0, 0, 0.835);
 }
@@ -247,4 +247,8 @@ input{
   display: flex;
   justify-content: right;
   flex-direction: row;
+}
+
+.red{
+  background-color: rgb(255, 0, 0);
 }

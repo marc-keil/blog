@@ -31,6 +31,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
         }
         ?>
     </header>
+    <div class="az">
     <main>
         <div id="crdivprofil">
             <h2 class="text-light">Profil de <?php echo $infoutilisateur['login'] ?> </h2>
@@ -44,7 +45,7 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
             <a class="profila" href="editionprofil.php"> Editer son profil</a>
             <br /><br />
         </div>
-
+    </div>
     </main>
 
     <footer>

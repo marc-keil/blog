@@ -70,6 +70,7 @@ if (isset($_POST['forminscription'])) {
         }
         ?>
     </header>
+    <div class="az">
     <main>
         <h2 id="crh2inscription" class="text-light"> Remplissez notre formulaire d'inscription</h2>
         <br /><br />
@@ -124,6 +125,7 @@ if (isset($_POST['forminscription'])) {
         }
         ?>
     </main>
+    </div>
     <footer>
         <?php
         include_once('include/footer.php');

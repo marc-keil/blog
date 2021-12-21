@@ -55,7 +55,7 @@ if (isset($_POST['formconnexion'])) {
 
         ?>
     </header>
-
+    <div class="az">
     <main>
         <br /><br />
         <div id="crdivconnexion">
@@ -99,6 +99,7 @@ if (isset($_POST['formconnexion'])) {
         }
         ?>
     </main>
+    </div>
     <footer>
         <?php
         include_once('include/footer.php');
