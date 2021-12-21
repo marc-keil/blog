@@ -1,5 +1,8 @@
 <?php session_start();
 require_once("config/bdd.php");
+$sql = "SELECT * FROM categories";
+$req = $bdd->prepare($sql);
+$req->execute()
 
 ?>
 

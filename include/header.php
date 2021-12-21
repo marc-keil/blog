@@ -3,7 +3,7 @@ require_once('config/bdd.php');
 
 $req = $bdd->prepare("SELECT * FROM categories ");
 $req->execute(array());
-$catégories = $req->fetchAll();
+$categories = $req->fetchAll();
 
 ?>
 
@@ -35,9 +35,11 @@ $catégories = $req->fetchAll();
                                 Articles
                             </a>
                             <div class="dropdown-content">
-                                <a href="#">Catégorie 1</a>
-                                <a href="#">Catégorie 2</a>
-                                <a href="#">Catégorie 3</a>
+                                <?php
+                                foreach($categories as $categorie){
+                                ?>
+                                <a href="article.php?categorie=<?= $categorie["id"] ?>"><?php echo $categorie["nom"] ?></a>
+    <?php } ?>
                             </div>
                         </div>
 

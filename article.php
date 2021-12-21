@@ -19,7 +19,7 @@ $result = $req2->fetch();
 $nbArticles = (int) $result["nb_articles"];
 
 // on limite par 10 le nb d'article par page
-$parPage = 10;
+$parPage = 5;
 //on calcule le nombre de page total
 $pages = ceil($nbArticles / $parPage);
 //var_dump($pages)
@@ -27,8 +27,10 @@ $pages = ceil($nbArticles / $parPage);
 //calcule du 1er article de la page
 $premier = ($currentPage * $parPage) - $parPage;
 
-$reqCategorie = $bdd->prepare("SELECT * FROM categories WHERE id =  1");
-$reqCategorie->execute();
+
+$lacateg=(int)$_GET['categorie'];
+$reqCategorie = $bdd->prepare("SELECT * FROM categories WHERE id =  ?");
+$reqCategorie->execute(array($lacateg));
 $categories = $reqCategorie->fetchAll();
 
 $req = $bdd->prepare("SELECT * FROM `articles` WHERE `id_categorie` = id_categorie ORDER BY id DESC LIMIT :premier,:parpage;");
@@ -54,29 +56,39 @@ $articles = $req->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Document</title>
 </head>
 
 <body>
-    <main>
-        <h1>Listes des articles</h1>
+    <header>
+    <?php
+        if (isset($_SESSION['login'])) { // si le gadjo est co 
+            include_once("include/headeronline.php"); //tu mets ça
+        } else {
+            include_once('include/header.php'); //sinon ça 
+        }
+        ?>
+    </header>
+    <main class="container">
+        <h1 class="text-light">Listes des articles</h1>
         <?php
         foreach ($categories as $categorie) {
             foreach ($articles as $article) { ?>
                 <section>
                     <article>
-                        <h2>
+                        <h2 class="text-light">
                             <?php echo "titre : " . strip_tags($article["titre"]); ?>
                         </h2>
-                        <h3>
+                        <h3 class="text-light">
                             <?php echo "catégorie : " . strip_tags($categorie["nom"]) ?>
                         </h3>
-                        <p>
+                        <p class="text-light">
                             <?php echo  "publié le :" . " " . $article["date"]; ?>
                         </p>
-                        <div>
+                        <div class="text-light">
                             <?php echo "article :" . " " . strip_tags($article["article"]);  ?>
                         </div>
                     </article>
@@ -86,15 +98,15 @@ $articles = $req->fetchAll(PDO::FETCH_ASSOC);
         <nav>
             <ul class="pagination">
                 <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
-                    <a href="article.php/?page=<?= $currentPage - 1 ?>" class="page-link">Précédente</a>
+                    <a href="article.php?page=<?= $currentPage - 1 ?>&categorie=<?= $categorie["id"]?>" class="page-link">Précédente</a>
                 </li>
                 <?php for ($page = 1; $page <= $pages; $page++) : ?>
                     <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
-                        <a href="article.php/?page=<?= $page ?>" class="page-link"><?= $page ?></a>
+                        <a href="article.php?page=<?= $page ?>&categorie=<?= $categorie["id"]?>" class="page-link"><?= $page ?></a>
                     </li>
                 <?php endfor ?>
                 <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
-                    <a href="article.php" class="page-link">Suivante</a>
+                    <a href="article.php?page=<?= $currentPage + 1 ?>&categorie=<?= $categorie["id"]?>" class="page-link">Suivante</a>
                 </li>
             </ul>
         </nav>
