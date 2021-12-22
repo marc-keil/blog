@@ -36,7 +36,7 @@ $categories = $req->fetchAll();
                             <?php
                                 foreach($categories as $categorie){
                                 ?>
-                                <a href="article.php?categorie=<?= $categorie["id"] ?>"><?php echo $categorie["nom"] ?></a>
+                                <a href="articles.php?categorie=<?= $categorie["id"] ?>"><?php echo $categorie["nom"] ?></a>
     <?php } ?>
                             </div>
                         </div>
