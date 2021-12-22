@@ -29,25 +29,21 @@ $premier = ($currentPage * $parPage) - $parPage;
 
 
 
-srand((float)microtime() * 1000000);
-$affimage = rand(1, $nbimages);
 
-
-
-$lacateg = (int)$_GET['categorie'];
-$reqCategorie = $bdd->prepare("SELECT * FROM categories WHERE id =  ?");
+$lacateg = $_GET['categorie'];
+$reqCategorie = $bdd->prepare("SELECT * FROM categories WHERE id = ?");
 $reqCategorie->execute(array($lacateg));
 $categories = $reqCategorie->fetchAll();
 
-$req = $bdd->prepare("SELECT * FROM `articles` WHERE `id_categorie` = id_categorie ORDER BY id DESC LIMIT :premier,:parpage;");
-
-$req->bindValue(':premier', $premier, PDO::PARAM_INT);
-$req->bindValue(':parpage', $parPage, PDO::PARAM_INT);
-
+$sql = "SELECT * FROM `articles` INNER JOIN categories ON articles.id_categorie = categories.id WHERE categories.id = :id_categorie";
+$req = $bdd->prepare($sql);
+// $req->bindValue(':premier', $premier, PDO::PARAM_INT);
+$req->bindValue(':id_categorie', $lacateg, PDO::PARAM_INT);
+// $req->bindValue(':parpage', $parPage, PDO::PARAM_INT);
 $req->execute();
 
 // on récupère toute les valeurs dans notre dictionnaire
-$articles = $req->fetchAll(PDO::FETCH_ASSOC);
+$articles = $req->fetchAll();
 
 // $sqlUser = "SELECT a.article, u.login, a.date FROM articles AS a INNER JOIN utilisateurs AS u ON a.id_utilisateur = u.id ORDER BY date  ";
 // $reqUser = $bdd->prepare($sqlUser);
@@ -87,8 +83,6 @@ $articles = $req->fetchAll(PDO::FETCH_ASSOC);
         <main class="container">
             <h1 class="text-light text-center">Listes des articles</h1>
             <?php
-
-            foreach ($categories as $categorie) {
                 foreach ($articles as $article) { ?>
                     <section class="pt-5">
                         <article class>
@@ -96,11 +90,13 @@ $articles = $req->fetchAll(PDO::FETCH_ASSOC);
                                 <?php echo "titre : " . strip_tags($article["titre"]); ?>
                             </h2>
                             <h3 class="text-light">
-                                <?php echo "catégorie : " . strip_tags($categorie["nom"]) ?>
+                                <?php
+                                  echo "catégorie : " . strip_tags($article["nom"]) 
+                                 ?>
                             </h3>
                             <div class="text-light">
                                 <p>
-                                    <?php echo "article :" . " " . strip_tags($article["article"]);  ?>
+                                    <?php  echo "article :" . " " . strip_tags($article["article"]);  ?>
                                 </p>
                             </div>
                             <div class="text-light">
@@ -111,8 +107,7 @@ $articles = $req->fetchAll(PDO::FETCH_ASSOC);
                                     
                             </div>
                             <img src="./images/CR7.jpg" with="20%" height="20%">
-                    <?php }
-            } ?>
+                    <?php } ?>
                     <hr class="text-light">
                     
                         </article>
