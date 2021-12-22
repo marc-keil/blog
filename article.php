@@ -28,7 +28,13 @@ $pages = ceil($nbArticles / $parPage);
 $premier = ($currentPage * $parPage) - $parPage;
 
 
-$lacateg=(int)$_GET['categorie'];
+
+srand((float)microtime() * 1000000);
+$affimage = rand(1, $nbimages);
+
+
+
+$lacateg = (int)$_GET['categorie'];
 $reqCategorie = $bdd->prepare("SELECT * FROM categories WHERE id =  ?");
 $reqCategorie->execute(array($lacateg));
 $categories = $reqCategorie->fetchAll();
@@ -43,6 +49,11 @@ $req->execute();
 // on récupère toute les valeurs dans notre dictionnaire
 $articles = $req->fetchAll(PDO::FETCH_ASSOC);
 
+// $sqlUser = "SELECT a.article, u.login, a.date FROM articles AS a INNER JOIN utilisateurs AS u ON a.id_utilisateur = u.id ORDER BY date  ";
+// $reqUser = $bdd->prepare($sqlUser);
+// $reqUser->execute();
+// $utilisateurs = $reqUser->fetch(PDO::FETCH_ASSOC)
+
 
 
 
@@ -56,15 +67,15 @@ $articles = $req->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Document</title>
 </head>
 
-<body>
+<body class="az">
     <header>
-    <?php
+        <?php
         if (isset($_SESSION['login'])) { // si le gadjo est co 
             include_once("include/headeronline.php"); //tu mets ça
         } else {
@@ -72,45 +83,61 @@ $articles = $req->fetchAll(PDO::FETCH_ASSOC);
         }
         ?>
     </header>
-    <main class="container">
-        <h1 class="text-light">Listes des articles</h1>
-        <?php
-        foreach ($categories as $categorie) {
-            foreach ($articles as $article) { ?>
-                <section>
-                    <article>
-                        <h2 class="text-light">
-                            <?php echo "titre : " . strip_tags($article["titre"]); ?>
-                        </h2>
-                        <h3 class="text-light">
-                            <?php echo "catégorie : " . strip_tags($categorie["nom"]) ?>
-                        </h3>
-                        <p class="text-light">
-                            <?php echo  "publié le :" . " " . $article["date"]; ?>
-                        </p>
-                        <div class="text-light">
-                            <?php echo "article :" . " " . strip_tags($article["article"]);  ?>
-                        </div>
-                    </article>
-                </section>
-        <?php }
-        } ?>
-        <nav>
-            <ul class="pagination">
-                <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
-                    <a href="article.php?page=<?= $currentPage - 1 ?>&categorie=<?= $categorie["id"]?>" class="page-link">Précédente</a>
-                </li>
-                <?php for ($page = 1; $page <= $pages; $page++) : ?>
-                    <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
-                        <a href="article.php?page=<?= $page ?>&categorie=<?= $categorie["id"]?>" class="page-link"><?= $page ?></a>
-                    </li>
-                <?php endfor ?>
-                <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
-                    <a href="article.php?page=<?= $currentPage + 1 ?>&categorie=<?= $categorie["id"]?>" class="page-link">Suivante</a>
-                </li>
-            </ul>
-        </nav>
-    </main>
+    <div>
+        <main class="container">
+            <h1 class="text-light text-center">Listes des articles</h1>
+            <?php
+
+            foreach ($categories as $categorie) {
+                foreach ($articles as $article) { ?>
+                    <section class="pt-5">
+                        <article class>
+                            <h2 class="text-light">
+                                <?php echo "titre : " . strip_tags($article["titre"]); ?>
+                            </h2>
+                            <h3 class="text-light">
+                                <?php echo "catégorie : " . strip_tags($categorie["nom"]) ?>
+                            </h3>
+                            <div class="text-light">
+                                <p>
+                                    <?php echo "article :" . " " . strip_tags($article["article"]);  ?>
+                                </p>
+                            </div>
+                            <div class="text-light">
+                                <p>
+                                    <?php echo  "publié le :" . " " . $article["date"]; ?>
+                                </p>
+                                <p>
+                                    
+                            </div>
+                            <img src="./images/CR7.jpg" with="20%" height="20%">
+                    <?php }
+            } ?>
+                    <hr class="text-light">
+                    
+                        </article>
+                    </section>
+
+                    <nav>
+                        <ul class="pagination align-item-center">
+                            <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                                <a href="article.php?page=<?= $currentPage - 1 ?>&categorie=<?= $categorie["id"] ?>" class="page-link">Précédente</a>
+                            </li>
+                            <?php for ($page = 1; $page <= $pages; $page++) : ?>
+                                <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
+                                    <a href="article.php?page=<?= $page ?>&categorie=<?= $categorie["id"] ?>" class="page-link"><?= $page ?></a>
+                                </li>
+                            <?php endfor ?>
+                            <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                                <a href="article.php?page=<?= $currentPage + 1 ?>&categorie=<?= $categorie["id"] ?>" class="page-link">Suivante</a>
+                            </li>
+                        </ul>
+                    </nav>
+        </main>
+    </div>
+    <footer>
+        <?php include_once("include/footer.php")   ?>
+    </footer>
 </body>
 
 </html>
