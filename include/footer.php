@@ -32,7 +32,6 @@
             <hr class="crfooterhr">
             <li class="crfootli"><a class="crfoota" href="index.php">Accueil</a></li>
             <li class="crfootli"><a class="crfoota" href="admin.php">Admin</a></li>
-            <li class="crfootli"><a class="crfoota" href="article.php">Article</a></li>
             <li class="crfootli"><a class="crfoota" href="connexion.php">connexion</a></li>
             <li class="crfootli"><a class="crfoota" href="inscription.php">Inscription</a></li>
             <li class="crfootli"><a class="crfoota" href="profil.php">Profil</a></li>
