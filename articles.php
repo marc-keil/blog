@@ -104,6 +104,9 @@ $articles = $req->fetchAll();
                                 <p>
                                     
                             </div>
+                            <p class="text-light">
+                                Ce site internet est sous surveillance de : 
+                            </p>
                             <img src="./images/CR7.jpg" wiht="5%" height="5%">
                     <?php } ?>
                     <hr class="text-light">
