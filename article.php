@@ -109,7 +109,7 @@ if (isset($_SESSION['id'])) {
 
 
                     <div class="legrosarticle">
-                        <p" class="text-light">
+                        <p class="text-light">
                             <?php echo "article :" . " " . strip_tags($articles["article"]);  ?>
                             </p>
                     </div>
