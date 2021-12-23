@@ -96,9 +96,9 @@ $articles = $req->fetchAll();
                             
                             
                             <div class="text-light text-center">
-                                <p>
+                                <a href="article.php?article=<?= $article["id"]; ?>">
                                     <?php  echo "article :" . " " . strip_tags($article["article"]);  ?>
-                                </p>
+                </a>
                             </div>
                             <div class="text-light text-center">
                                 <p>
