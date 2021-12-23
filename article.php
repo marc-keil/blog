@@ -29,7 +29,7 @@ $req->execute(array(
 ));
 $articles = $req->fetch(PDO::FETCH_ASSOC);
 
-$id_utilisateur = $_SESSION['id'];
+
 
 
 $reqcom = $bdd->prepare("SELECT commentaires.date, utilisateurs.login, commentaires.commentaire, commentaires.id AS idcom  FROM commentaires INNER JOIN utilisateurs on commentaires.id_utilisateur = utilisateurs.id WHERE id_article = :id_article ORDER BY date DESC");
@@ -44,7 +44,7 @@ if (isset($_SESSION['id'])) {
     $req->execute(array($_SESSION['login']));
     $user = $req->fetch();
 
-
+    $id_utilisateur = $_SESSION['id'];
 
     if (isset($_POST['subCommentaire'])) {
         $commentaire = $_POST['commentaire'];
@@ -109,7 +109,7 @@ if (isset($_SESSION['id'])) {
 
 
                     <div class="legrosarticle">
-                        <p">
+                        <p" class="text-light">
                             <?php echo "article :" . " " . strip_tags($articles["article"]);  ?>
                             </p>
                     </div>
@@ -143,7 +143,7 @@ if (isset($_SESSION['id'])) {
                 echo '<p class="p-3 mb-3 bg-secondary text-white rounded">Posté le : ' . $commentaire['date'] . '<br>';
                 echo 'Utilisateur : ' . $commentaire['login'] . '<br>';
                 echo 'Commentaire : ' . $commentaire['commentaire'] . '</p>';
-                if ($_SESSION['id_droits'] == 1337) { ?>
+                if (isset($_SESSION['id_droits']) == 1337) { ?>
                     <a class="btn btn-danger p-3 mb-3 bg-secondaty text-white rounded" href="./article.php?article=<?= $article ?>&supprimercom=<?= $commentaire['idcom'] ?>">Supprimer le commentaire</a>
             <?php   }
             } ?>
