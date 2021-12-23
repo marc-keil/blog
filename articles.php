@@ -1,13 +1,11 @@
 <?php session_start();
 require_once('config/bdd.php');
 // on détermine sûre quelle page on se trouve 
-if (isset($_GET["page"]) && !empty($_GET["page"] )) {
+if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
     $currentPage = (int) strip_tags($_GET["page"]);
-
 } else {
     $currentPage = 1;
-    
 }
 
 // on détermine le nombre total d'articles 
@@ -83,55 +81,55 @@ $articles = $req->fetchAll();
         <main class="container">
             <h1 class="text-light text-center">Listes des articles</h1>
             <?php
-                foreach ($articles as $article) { ?>
-                    <section class="pt-5">
-                        <article class="d-flex flex-column ">
-                            
-                            <h2 class="text-light text-center">
-                                <?php echo "titre : " . strip_tags($article["titre"]); ?>
-                            </h2>
-                            <h3 class="text-light text-center">
-                                <?php
-                                echo "catégorie : " . strip_tags($lacateg) 
-                                ?>
-                            </h3>
-                            
-                            
-                            <div class="texte_article">
-                                <?php echo "article : "."<br>" ?>
-                                <a class="ahref"href="article.php?article=<?= $article["id"]; ?>">
-                                    <?php  echo strip_tags($article["article"]);  ?>
-                </a>
-                            </div>
-                            <div class="text-light text-center">
-                                <p>
-                                    <?php echo  "publié le :" . " " . $article["date"]; ?>
-                                </p>
-                                <p>
+            foreach ($articles as $article) { ?>
+                <section class="pt-5">
+                    <article class="d-flex flex-column ">
+
+                        <h2 class="text-light text-center">
+                            <?php echo "titre : " . strip_tags($article["titre"]); ?>
+                        </h2>
+                        <h3 class="text-light text-center">
+                            <?php
+                            echo "catégorie : " . strip_tags($lacateg)
+                            ?>
+                        </h3>
+
+
+                        <div class="texte_article">
+                            <?php echo "article : " . "<br>" ?>
+                            <a class="ahref" href="article.php?article=<?= $article["id"]; ?>">
+                                <?php echo strip_tags($article["article"]);  ?>
+                            </a>
+                        </div>
+                        <div class="text-light text-center">
+                            <p>
+                                <?php echo  "publié le :" . " " . $article["date"]; ?>
+                            </p>
+                            <p>
                                 <?php echo "par : " . $article["login"] ?>
-                            </div>
-                            
-                            <hr class="text-light">
+                        </div>
+
+                        <hr class="text-light">
                     <?php } ?>
-                    
-                    
-                        </article>
-                    </section>
-                    <nav>
-                        <ul class="pagination align-item-center">
-                            <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
-                                <a href="articles.php?page=<?= $currentPage - 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Précédente</a>
+
+
+                    </article>
+                </section>
+                <nav>
+                    <ul class="pagination align-item-center">
+                        <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                            <a href="articles.php?page=<?= $currentPage - 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Précédente</a>
+                        </li>
+                        <?php for ($page = 1; $page <= $pages; $page++) : ?>
+                            <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
+                                <a href="articles.php?page=<?= $page ?>&categorie=<?= $lacateg ?>" class="page-link"><?= $page ?></a>
                             </li>
-                            <?php for ($page = 1; $page <= $pages; $page++) : ?>
-                                <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
-                                    <a href="articles.php?page=<?= $page ?>&categorie=<?= $lacateg ?>" class="page-link"><?= $page ?></a>
-                                </li>
-                            <?php endfor ?>
-                            <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
-                                <a href="articles.php?page=<?= $currentPage + 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Suivante</a>
-                            </li>
-                        </ul>
-                    </nav>
+                        <?php endfor ?>
+                        <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                            <a href="articles.php?page=<?= $currentPage + 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Suivante</a>
+                        </li>
+                    </ul>
+                </nav>
         </main>
     </div>
     <footer>

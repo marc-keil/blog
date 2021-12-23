@@ -80,58 +80,58 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
             ?>
         </header>
         <div class="az">
-        <main>
-            <div id="crdivedition">
-                <h2 class="text-light">Edition de mon profil</h2>
-                <br />
-                <form method="POST" action="">
-                    <input id="hidden" name="submit" type="hidden" value=1>
-                    <table>
-                        <tr class="crtdinscription">
-                            <td align="right">
-                                <label class="text-light" for="login">Login :</label>
-                            </td>
-                            <td>
-                                <input class="crtdedition" id="login" type="text" name="newlogin" placeholder="Login" value="<?php echo $infoutilisateur['login']; ?>">
-                            </td>
-                        </tr>
-                        <tr class="crtdinscription">
-                            <td align="right">
-                                <label class="text-light" for="email">Email :</label>
-                            </td>
-                            <td class=test>
-                                <input class="crtdedition" id="email" type="text" name="newemail" placeholder="Email" value="<?php echo $infoutilisateur['email']; ?>">
-                            </td>
-                        </tr>
-                        <tr class="crtdinscription">
-                            <td class=test align="right">
-                                <label class="text-light" for="newmdp">Password :</label>
-                            </td>
-                            <td>
-                                <input class="crtdedition" id="newmdp" type="password" name="newmdp" placeholder="Mot de passe">
-                            </td>
-                        </tr>
-                        <tr class="crtdinscription">
-                            <td class=test align="right">
-                                <label class="text-light" for="newmdp2">Confirmation du password :</label>
-                            </td>
-                            <td>
-                                <input class="crtdedition" type="password" id="newmdp2" name="newmdp2" placeholder="Confirmation mot de passe">
-                            </td>
-                        </tr>
-                    </table>
-            </div>
+            <main>
+                <div id="crdivedition">
+                    <h2 class="text-light">Edition de mon profil</h2>
+                    <br />
+                    <form method="POST" action="">
+                        <input id="hidden" name="submit" type="hidden" value=1>
+                        <table>
+                            <tr class="crtdinscription">
+                                <td align="right">
+                                    <label class="text-light" for="login">Login :</label>
+                                </td>
+                                <td>
+                                    <input class="crtdedition" id="login" type="text" name="newlogin" placeholder="Login" value="<?php echo $infoutilisateur['login']; ?>">
+                                </td>
+                            </tr>
+                            <tr class="crtdinscription">
+                                <td align="right">
+                                    <label class="text-light" for="email">Email :</label>
+                                </td>
+                                <td class=test>
+                                    <input class="crtdedition" id="email" type="text" name="newemail" placeholder="Email" value="<?php echo $infoutilisateur['email']; ?>">
+                                </td>
+                            </tr>
+                            <tr class="crtdinscription">
+                                <td class=test align="right">
+                                    <label class="text-light" for="newmdp">Password :</label>
+                                </td>
+                                <td>
+                                    <input class="crtdedition" id="newmdp" type="password" name="newmdp" placeholder="Mot de passe">
+                                </td>
+                            </tr>
+                            <tr class="crtdinscription">
+                                <td class=test align="right">
+                                    <label class="text-light" for="newmdp2">Confirmation du password :</label>
+                                </td>
+                                <td>
+                                    <input class="crtdedition" type="password" id="newmdp2" name="newmdp2" placeholder="Confirmation mot de passe">
+                                </td>
+                            </tr>
+                        </table>
+                </div>
 
-            <?php
-            if (isset($msg)) {
-                echo '<font color="red">' . $msg . '</font><br /><br />';
-            }
-            ?>
+                <?php
+                if (isset($msg)) {
+                    echo '<font color="red">' . $msg . '</font><br /><br />';
+                }
+                ?>
                 <input id="crinputedition" type="submit" class="formconnexion" name="confirmation" value="Confirmé !">
-            </form>
-            <br><br>
-            <a href="profil.php" class="formconnexion">Retour</a><br><br><br>
-        </main>
+                </form>
+                <br><br>
+                <a href="profil.php" class="formconnexion">Retour</a><br><br><br>
+            </main>
         </div>
         <footer>
             <?php

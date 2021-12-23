@@ -17,7 +17,7 @@ if (isset($_GET['supprimercom']) && !empty($_GET['supprimercom'])) {
     $reqc = $bdd->prepare('DELETE FROM commentaires WHERE id = ?');
     $reqc->execute(array($supprimercom));
     header("Location: article.php?article=$article");
-    exit(); 
+    exit();
 }
 
 
@@ -58,7 +58,7 @@ if (isset($_SESSION['id'])) {
             $req2->execute(array($commentaire, $article, $id_utilisateur));
             $msg = "publié";
             header("Location: article.php?article=$article");
-            exit(); 
+            exit();
         } else {
             $msg = "Nous n'avons pas pu publier votre commentaire";
         }
@@ -111,7 +111,7 @@ if (isset($_SESSION['id'])) {
                     <div class="legrosarticle">
                         <p class="text-light">
                             <?php echo "article :" . " " . strip_tags($articles["article"]);  ?>
-                            </p>
+                        </p>
                     </div>
                     <div class="text-light text-center">
                         <p>
@@ -128,7 +128,7 @@ if (isset($_SESSION['id'])) {
             <section class="d-flex row-5">
                 <form method="post" action="">
                     <textarea class="form7 " name="commentaire" placeholder="Veuillez saisir votre commentaire..."></textarea><br>
-                    <input class=" btn btn-primary from7"  type="submit" name="subCommentaire" value="Publier votre commentaire" />
+                    <input class=" btn btn-primary from7" type="submit" name="subCommentaire" value="Publier votre commentaire" />
                 </form>
             </section>
 

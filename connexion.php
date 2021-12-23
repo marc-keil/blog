@@ -56,49 +56,49 @@ if (isset($_POST['formconnexion'])) {
         ?>
     </header>
     <div class="az">
-    <main>
-        <br /><br />
-        <div id="crdivconnexion">
-            <div id="crh2connexion">
-                <h2 class="text-light">Connexion</h2>
+        <main>
+            <br /><br />
+            <div id="crdivconnexion">
+                <div id="crh2connexion">
+                    <h2 class="text-light">Connexion</h2>
+                </div>
+
+                <form method="POST" action="" id="crforconnexion">
+                    <table>
+                        <tr>
+                            <td class="crtdco">
+                                <label class="text-light" for="loginconnect">Login :</label>
+                            </td>
+                            <td class="crtdco">
+                                <input type="text" name="loginconnect" placeholder="Votre Login">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="crtdco">
+                                <label class="text-light" for="password">Password :</label>
+                            </td>
+                            <td class="crtdco">
+                                <input type="password" name="passwordconnect" placeholder="Votre Password">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="crtdco">
+                                <input class="btn btn-primary" type="submit" name="formconnexion" id="crinputco" value="Se connecter !">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
             </div>
 
-            <form method="POST" action="" id="crforconnexion">
-                <table>
-                    <tr>
-                        <td class="crtdco">
-                            <label class="text-light" for="loginconnect">Login :</label>
-                        </td>
-                        <td class="crtdco">
-                            <input type="text" name="loginconnect" placeholder="Votre Login">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="crtdco">
-                            <label class="text-light" for="password">Password :</label>
-                        </td>
-                        <td class="crtdco">
-                            <input type="password" name="passwordconnect" placeholder="Votre Password">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="crtdco">
-                            <input class="btn btn-primary" type="submit" name="formconnexion" id="crinputco" value="Se connecter !">
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
 
 
 
-
-        <?php
-        if (isset($erreur)) {
-            echo '<font color="red">' . $erreur . '</font><br><br>';
-        }
-        ?>
-    </main>
+            <?php
+            if (isset($erreur)) {
+                echo '<font color="red">' . $erreur . '</font><br><br>';
+            }
+            ?>
+        </main>
     </div>
     <footer>
         <?php
