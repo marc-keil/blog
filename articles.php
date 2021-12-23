@@ -33,7 +33,7 @@ $reqCategorie = $bdd->prepare("SELECT * FROM categories WHERE id = ?");
 $reqCategorie->execute(array($lacateg));
 $categories = $reqCategorie->fetchAll();
 
-$sql = "SELECT * FROM `articles` INNER JOIN categories ON articles.id_categorie = categories.id  WHERE categories.id = :id_categorie ORDER BY date DESC LIMIT :premier , :parpage ";
+$sql = "SELECT articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login FROM `articles` INNER JOIN categories ON articles.id_categorie = categories.id INNER JOIN utilisateurs ON utilisateurs.id = articles.id_utilisateur WHERE categories.id = :id_categorie ORDER BY date DESC LIMIT :premier , :parpage; ";
 $req = $bdd->prepare($sql);
 $req->bindValue(':premier', $premier, PDO::PARAM_INT);
 $req->bindValue(':id_categorie', $lacateg, PDO::PARAM_INT);
@@ -83,33 +83,34 @@ $articles = $req->fetchAll();
             <?php
                 foreach ($articles as $article) { ?>
                     <section class="pt-5">
-                        <article class>
-                            <h2 class="text-light">
+                        <article class="d-flex flex-column ">
+                            
+                            <h2 class="text-light text-center">
                                 <?php echo "titre : " . strip_tags($article["titre"]); ?>
                             </h2>
-                            <h3 class="text-light">
+                            <h3 class="text-light text-center">
                                 <?php
-                                echo "catégorie : " . strip_tags($article["nom"]) 
+                                echo "catégorie : " . strip_tags($lacateg) 
                                 ?>
                             </h3>
-                            <div class="text-light">
+                            
+                            
+                            <div class="text-light text-center">
                                 <p>
                                     <?php  echo "article :" . " " . strip_tags($article["article"]);  ?>
                                 </p>
                             </div>
-                            <div class="text-light">
+                            <div class="text-light text-center">
                                 <p>
                                     <?php echo  "publié le :" . " " . $article["date"]; ?>
                                 </p>
                                 <p>
-                                    
+                                <?php echo "par : " . $article["login"] ?>
                             </div>
-                            <p class="text-light">
-                                Ce site internet est sous surveillance de ↓
-                            </p>
-                            <img src="./images/CR7.jpg" wiht="5%" height="5%">
+                            
+                            <hr class="text-light">
                     <?php } ?>
-                    <hr class="text-light">
+                    
                     
                         </article>
                     </section>
