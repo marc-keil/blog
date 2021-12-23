@@ -287,3 +287,12 @@ text-align: center;
   flex-direction: column;
   align-items: center;
 }
+
+.texte_article{
+  height: fit-content;
+  overflow-wrap: break-word;
+  text-align: center;
+  color:white;
+
+}
+
