@@ -10,6 +10,18 @@ $resultcoms = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
 $article = $_GET['article'];
+
+// Fonction supprimé le com
+if (isset($_GET['supprimercom']) && !empty($_GET['supprimercom'])) {
+    $supprimercom = (int) $_GET['supprimercom'];
+    $reqc = $bdd->prepare('DELETE FROM commentaires WHERE id = ?');
+    $reqc->execute(array($supprimercom));
+    header("Location: article.php?article=$article");
+    exit(); 
+}
+
+
+
 $sqlarticle = "SELECT * FROM `articles` INNER JOIN utilisateurs ON articles.id_utilisateur = utilisateurs.id INNER JOIN categories ON articles.id_categorie = categories.id WHERE articles.id = :idarticle";
 $req = $bdd->prepare($sqlarticle);
 $req->execute(array(
@@ -20,7 +32,7 @@ $articles = $req->fetch(PDO::FETCH_ASSOC);
 $id_utilisateur = $_SESSION['id'];
 
 
-$reqcom = $bdd->prepare("SELECT * FROM commentaires INNER JOIN utilisateurs on commentaires.id_utilisateur = utilisateurs.id WHERE id_article = :id_article");
+$reqcom = $bdd->prepare("SELECT commentaires.date, utilisateurs.login, commentaires.commentaire, commentaires.id AS idcom  FROM commentaires INNER JOIN utilisateurs on commentaires.id_utilisateur = utilisateurs.id WHERE id_article = :id_article ORDER BY date DESC");
 $reqcom->execute(array(
     ':id_article' => $article,
 ));
@@ -44,8 +56,9 @@ if (isset($_SESSION['id'])) {
 
             $req2 = $bdd->prepare("INSERT INTO commentaires(commentaire,id_article, id_utilisateur, date) VALUES(?,?, ?, NOW())");
             $req2->execute(array($commentaire, $article, $id_utilisateur));
-
             $msg = "publié";
+            header("Location: article.php?article=$article");
+            exit(); 
         } else {
             $msg = "Nous n'avons pas pu publier votre commentaire";
         }
@@ -112,38 +125,36 @@ if (isset($_SESSION['id'])) {
 
                 </article>
             </section>
-            <section class ="d-flex row-5">
-            <form method="post" action="">
-                <textarea class="form7 " name="commentaire" placeholder="Veuillez saisir votre commentaire..."></textarea><br>
-                <input class=" btn btn-primary from7" type="submit" name="subCommentaire" value="Publier votre commentaire" />
-            </form>
+            <section class="d-flex row-5">
+                <form method="post" action="">
+                    <textarea class="form7 " name="commentaire" placeholder="Veuillez saisir votre commentaire..."></textarea><br>
+                    <input class=" btn btn-primary from7"  type="submit" name="subCommentaire" value="Publier votre commentaire" />
+                </form>
             </section>
 
 
 
 
             <?php if (isset($msg)) {
-                echo "<p class='alert alert-info col-2'>".$msg . "</p>"; 
-            } 
+                echo "<p class='alert alert-info col-2'>" . $msg . "</p>";
+            }
 
-    foreach ($com as $commentaire) {
-        echo '<p class="p-3 mb-3 bg-secondary text-white rounded">Posté le : ' . $commentaire['date'] . '<br>';
-        echo 'Utilisateur : ' . $commentaire['login'] . '<br>';
-        echo 'Commentaire : ' . $commentaire['commentaire'] . '</p>';
-    }
+            foreach ($com as $commentaire) {
+                echo '<p class="p-3 mb-3 bg-secondary text-white rounded">Posté le : ' . $commentaire['date'] . '<br>';
+                echo 'Utilisateur : ' . $commentaire['login'] . '<br>';
+                echo 'Commentaire : ' . $commentaire['commentaire'] . '</p>';
+                if ($_SESSION['id_droits'] == 1337) { ?>
+                    <a class="btn btn-danger p-3 mb-3 bg-secondaty text-white rounded" href="./article.php?article=<?= $article ?>&supprimercom=<?= $commentaire['idcom'] ?>">Supprimer le commentaire</a>
+            <?php   }
+            } ?>
 
+        </main>
+        <footer>
 
-    
-    ?>
-    
-    
-    </main>
-    <footer>
-
-        <?php include_once("include/footer.php"); ?>
-    </footer>
+            <?php include_once("include/footer.php"); ?>
+        </footer>
     </div>
-    
+
 </body>
 
-</html>
+<html>
