@@ -2,12 +2,20 @@
 require_once("config/bdd.php");
 $sql = "SELECT * FROM categories";
 $req = $bdd->prepare($sql);
-$req->execute()
+$req->execute();
+
+
+$troisdernierarticlesql = "SELECT categories.nom, articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login FROM `articles` INNER JOIN categories ON articles.id_categorie = categories.id INNER JOIN utilisateurs ON utilisateurs.id = articles.id_utilisateur ORDER BY date DESC LIMIT 0,3";
+$requetearticle = $bdd->prepare($troisdernierarticlesql);
+$requetearticle->execute();
+$article = $requetearticle->fetchAll();
+
+
 
 ?>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    
     <title>Index</title>
 </head>
 
@@ -21,9 +29,24 @@ $req->execute()
         }
         ?>
     </header>
+
     <main>
-        <h1>?</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor quo, nostrum error fugiat architecto, nam ipsam explicabo animi rerum odio officia aliquam? Dolore eum deserunt ullam dolores odit voluptatum eos?</p>
+        <?php foreach ($article as $a) { ?> <div class="jaimecentrer">
+            <h1><?= $a['titre'] ?></h1>
+            <h2>Catégorie : <?= $a['nom'] ?></h2><br>
+            <div class="letextewoula">  <p><?= $a['article'] ?>
+          
+            <?php
+            $articlelenght = strlen($a['article']);
+            if ($articlelenght > 200){ ?>
+            <a class="charlie" href="article.php?article=<?= $a['id'] ?>" ><br>Lire la suite de l'article...</a>
+           <?php } ?>
+            
+            </p></div>
+            <br>
+            <p>Publié par : <?= $a['login'] ?></p>
+        <?php  } ?>
+            </div>
     </main>
     <footer>
         <?php

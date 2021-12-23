@@ -32,19 +32,26 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
         ?>
     </header>
     <div class="az">
-    <main>
-        <div id="crdivprofil">
-            <h2 class="text-light">Profil de <?php echo $infoutilisateur['login'] ?> </h2>
-            <br /><br />
-            <p class="text-light"> Login = <?php echo $infoutilisateur['login'] ?></p>
-            <br /><br />
-            <br /><br />
-            <p class="text-light"> Email = <?php echo $infoutilisateur['email'] ?></p>
+        <main>
+            <div id="crdivprofil">
+                <h2 class="text-light">Profil de <?php echo $infoutilisateur['login'] ?> </h2>
+                <br />
+                <p class="text-light"> Login = <?php echo $infoutilisateur['login'] ?></p>
+                <br />
+                <p class="text-light"> Email = <?php echo $infoutilisateur['email'] ?></p>
+                <br />
+                <a class="profila" href="editionprofil.php"> Editer son profil</a>
+                <br />
+                <?php
+                // ID nécessaire pour voir creer un article
+                if ($_SESSION['id_droits'] == 1337) { ?>
+                <a href="créerarticle.php">Créer un article</a><br>
 
-            <br /><br />
-            <a class="profila" href="editionprofil.php"> Editer son profil</a>
-            <br /><br />
-        </div>
+              <?php  }                 ?>
+
+
+
+            </div>
     </div>
     </main>
 

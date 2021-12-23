@@ -224,7 +224,7 @@ if (isset($_GET['supprimerarticle']) && !empty($_GET['supprimerarticle'])) {
         ?>
     </header>
     <div class="az">
-        <main class="container">
+        <main class="container pt-3">
             <h2 class="text-light">Espace Administrateur</h2>
             <br />
             <table>

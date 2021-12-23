@@ -1,14 +1,17 @@
 #fondHead {
   background-image: url(../images/fondHead.gif);
 }
-
+html {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 .dropdown {
   position: relative;
   display: inline-block;
 }
-/* a{
-  font-size: 120%;
-} */
+.charlie{
+  text-decoration: none;
+}
 .dropdown-content {
   display: none;
   position: absolute;
@@ -252,3 +255,44 @@ input{
 .red{
   background-color: rgb(255, 0, 0);
 }
+.letextewoula {
+  width: 80vw;
+
+
+
+
+}
+
+.letextewoula p{
+
+height: fit-content;
+overflow-wrap: break-word;
+text-align: center;
+
+}
+
+.legrosarticle {
+  padding-right: 8rem;
+  padding-left: 8rem;
+  text-align: center;
+  padding-top: 3px;
+  height: fit-content;
+  overflow-wrap: break-word;
+  color: white;
+}
+
+.jaimecentrer {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.texte_article{
+  height: fit-content;
+  overflow-wrap: break-word;
+  text-align: center;
+  color:white;
+
+}
+

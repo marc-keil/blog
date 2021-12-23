@@ -1,53 +1,73 @@
-<?php session_start();
+<?php
+session_start();
 require_once('config/bdd.php');
-// on détermine sûre quelle page on se trouve 
-if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
-    $currentPage = (int) strip_tags($_GET["page"]);
-} else {
-    $currentPage = 1;
+
+$query = $bdd->prepare("SELECT c.commentaire, u.login, c.date FROM commentaires AS c INNER JOIN utilisateurs AS u ON c.id_utilisateur  = u.id ORDER BY date DESC");
+$query->execute();
+
+$resultcoms = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
+$article = $_GET['article'];
+
+// Fonction supprimé le com
+if (isset($_GET['supprimercom']) && !empty($_GET['supprimercom'])) {
+    $supprimercom = (int) $_GET['supprimercom'];
+    $reqc = $bdd->prepare('DELETE FROM commentaires WHERE id = ?');
+    $reqc->execute(array($supprimercom));
+    header("Location: article.php?article=$article");
+    exit(); 
 }
 
-// on détermine le nombre total d'articles 
-$sql2 = "SELECT COUNT(*) AS `nb_articles` FROM `articles`";
-// on prépare la requête
-$req2 = $bdd->prepare($sql2);
-// on éxécute la requête
-$req2->execute();
-// on récupère le nombre d'aritcle
-$result = $req2->fetch();
-$nbArticles = (int) $result["nb_articles"];
-
-// on limite par 10 le nb d'article par page
-$parPage = 5;
-//on calcule le nombre de page total
-$pages = ceil($nbArticles / $parPage);
-//var_dump($pages)
-
-//calcule du 1er article de la page
-$premier = ($currentPage * $parPage) - $parPage;
 
 
-$lacateg=(int)$_GET['categorie'];
-$reqCategorie = $bdd->prepare("SELECT * FROM categories WHERE id =  ?");
-$reqCategorie->execute(array($lacateg));
-$categories = $reqCategorie->fetchAll();
+$sqlarticle = "SELECT * FROM `articles` INNER JOIN utilisateurs ON articles.id_utilisateur = utilisateurs.id INNER JOIN categories ON articles.id_categorie = categories.id WHERE articles.id = :idarticle";
+$req = $bdd->prepare($sqlarticle);
+$req->execute(array(
+    ':idarticle' => $article,
+));
+$articles = $req->fetch(PDO::FETCH_ASSOC);
 
-$req = $bdd->prepare("SELECT * FROM `articles` WHERE `id_categorie` = id_categorie ORDER BY id DESC LIMIT :premier,:parpage;");
+$id_utilisateur = $_SESSION['id'];
 
-$req->bindValue(':premier', $premier, PDO::PARAM_INT);
-$req->bindValue(':parpage', $parPage, PDO::PARAM_INT);
 
-$req->execute();
+$reqcom = $bdd->prepare("SELECT commentaires.date, utilisateurs.login, commentaires.commentaire, commentaires.id AS idcom  FROM commentaires INNER JOIN utilisateurs on commentaires.id_utilisateur = utilisateurs.id WHERE id_article = :id_article ORDER BY date DESC");
+$reqcom->execute(array(
+    ':id_article' => $article,
+));
+$com = $reqcom->fetchAll(PDO::FETCH_ASSOC);
 
-// on récupère toute les valeurs dans notre dictionnaire
-$articles = $req->fetchAll(PDO::FETCH_ASSOC);
+
+if (isset($_SESSION['id'])) {
+    $req = $bdd->prepare("SELECT * FROM utilisateurs WHERE login = ?");
+    $req->execute(array($_SESSION['login']));
+    $user = $req->fetch();
 
 
 
+    if (isset($_POST['subCommentaire'])) {
+        $commentaire = $_POST['commentaire'];
+
+
+
+        if (isset($commentaire) and !empty($_POST['commentaire'])) {
+
+
+            $req2 = $bdd->prepare("INSERT INTO commentaires(commentaire,id_article, id_utilisateur, date) VALUES(?,?, ?, NOW())");
+            $req2->execute(array($commentaire, $article, $id_utilisateur));
+            $msg = "publié";
+            header("Location: article.php?article=$article");
+            exit(); 
+        } else {
+            $msg = "Nous n'avons pas pu publier votre commentaire";
+        }
+    }
+}
 
 ?>
 
+</div>
 
 
 <!DOCTYPE html>
@@ -56,61 +76,85 @@ $articles = $req->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Document</title>
 </head>
 
 <body>
-    <header>
-    <?php
-        if (isset($_SESSION['login'])) { // si le gadjo est co 
-            include_once("include/headeronline.php"); //tu mets ça
-        } else {
-            include_once('include/header.php'); //sinon ça 
-        }
-        ?>
-    </header>
-    <main class="container">
-        <h1 class="text-light">Listes des articles</h1>
-        <?php
-        foreach ($categories as $categorie) {
-            foreach ($articles as $article) { ?>
-                <section>
-                    <article>
-                        <h2 class="text-light">
-                            <?php echo "titre : " . strip_tags($article["titre"]); ?>
-                        </h2>
-                        <h3 class="text-light">
-                            <?php echo "catégorie : " . strip_tags($categorie["nom"]) ?>
-                        </h3>
-                        <p class="text-light">
-                            <?php echo  "publié le :" . " " . $article["date"]; ?>
+    <div class="az">
+        <header>
+            <?php
+            if (isset($_SESSION['login'])) { // si le gadjo est co 
+                include_once("include/headeronline.php"); //tu mets ça
+            } else {
+                include_once('include/header.php'); //sinon ça 
+            }
+            ?>
+        </header>
+
+
+        <main class="pt-3">
+            <section class="pt-3">
+                <article class="d-flex flex-column pt-3">
+
+                    <h2 class="text-light text-center pt-3">
+                        <?php echo "titre : " . strip_tags($articles["titre"]); ?>
+                    </h2>
+                    <h3 class="text-light text-center pt-3">
+                        <?php echo "Catégorie : " . strip_tags($articles["nom"]) ?>
+                    </h3>
+                    <hr class="text-light ">
+
+
+                    <div class="legrosarticle">
+                        <p">
+                            <?php echo "article :" . " " . strip_tags($articles["article"]);  ?>
+                            </p>
+                    </div>
+                    <div class="text-light text-center">
+                        <p>
+                            <?php echo  "publié le :" . " " . $articles["date"]; ?>
                         </p>
-                        <div class="text-light">
-                            <?php echo "article :" . " " . strip_tags($article["article"]);  ?>
-                        </div>
-                    </article>
-                </section>
-        <?php }
-        } ?>
-        <nav>
-            <ul class="pagination">
-                <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
-                    <a href="article.php?page=<?= $currentPage - 1 ?>&categorie=<?= $categorie["id"]?>" class="page-link">Précédente</a>
-                </li>
-                <?php for ($page = 1; $page <= $pages; $page++) : ?>
-                    <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
-                        <a href="article.php?page=<?= $page ?>&categorie=<?= $categorie["id"]?>" class="page-link"><?= $page ?></a>
-                    </li>
-                <?php endfor ?>
-                <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
-                    <a href="article.php?page=<?= $currentPage + 1 ?>&categorie=<?= $categorie["id"]?>" class="page-link">Suivante</a>
-                </li>
-            </ul>
-        </nav>
-    </main>
+                        <p>
+                            <?php echo "par : " . $articles["login"];
+                            ?>
+                    </div>
+
+
+                </article>
+            </section>
+            <section class="d-flex row-5">
+                <form method="post" action="">
+                    <textarea class="form7 " name="commentaire" placeholder="Veuillez saisir votre commentaire..."></textarea><br>
+                    <input class=" btn btn-primary from7"  type="submit" name="subCommentaire" value="Publier votre commentaire" />
+                </form>
+            </section>
+
+
+
+
+            <?php if (isset($msg)) {
+                echo "<p class='alert alert-info col-2'>" . $msg . "</p>";
+            }
+
+            foreach ($com as $commentaire) {
+                echo '<p class="p-3 mb-3 bg-secondary text-white rounded">Posté le : ' . $commentaire['date'] . '<br>';
+                echo 'Utilisateur : ' . $commentaire['login'] . '<br>';
+                echo 'Commentaire : ' . $commentaire['commentaire'] . '</p>';
+                if ($_SESSION['id_droits'] == 1337) { ?>
+                    <a class="btn btn-danger p-3 mb-3 bg-secondaty text-white rounded" href="./article.php?article=<?= $article ?>&supprimercom=<?= $commentaire['idcom'] ?>">Supprimer le commentaire</a>
+            <?php   }
+            } ?>
+
+        </main>
+        <footer>
+
+            <?php include_once("include/footer.php"); ?>
+        </footer>
+    </div>
+
 </body>
 
-</html>
+<html>
