@@ -203,15 +203,15 @@ $premier = ($currentPage * $parPage) - $parPage;
                 <nav>
                     <ul class="pagination align-item-center">
                         <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
-                            <a href="articles.php?page=<?= $currentPage - 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Précédente</a>
+                            <a href="articles.php?page=<?= $currentPage - 1 ?>" class="page-link">Précédente</a>
                         </li>
                         <?php for ($page = 1; $page <= $pages; $page++) : ?>
                             <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
-                                <a href="articles.php?page=<?= $page ?>&categorie=<?= $lacateg ?>" class="page-link"><?= $page ?></a>
+                                <a href="articles.php?page=<?= $page ?>" class="page-link"><?= $page ?></a>
                             </li>
                         <?php endfor; ?>
                         <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
-                            <a href="articles.php?page=<?= $currentPage + 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Suivante</a>
+                            <a href="articles.php?page=<?= $currentPage + 1 ?>" class="page-link">Suivante</a>
                         </li>
                     </ul>
                 </nav>
