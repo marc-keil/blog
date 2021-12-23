@@ -1,15 +1,17 @@
 <?php session_start();
 require_once('config/bdd.php');
 // on détermine sûre quelle page on se trouve 
-if (isset($_GET["page"]) && !empty($_GET["page"])) {
+if (isset($_GET["page"]) && !empty($_GET["page"] )) {
 
     $currentPage = (int) strip_tags($_GET["page"]);
+
 } else {
     $currentPage = 1;
+    
 }
 
 // on détermine le nombre total d'articles 
-$sql2 = "SELECT COUNT(*) AS `nb_articles` FROM `articles`";
+$sql2 = "SELECT COUNT(*) AS `nb_articles` FROM `articles` ";
 // on prépare la requête
 $req2 = $bdd->prepare($sql2);
 // on éxécute la requête
