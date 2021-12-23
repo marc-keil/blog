@@ -6,7 +6,6 @@ session_start();
 if (isset($_SESSION['login']) != 1337 || isset($_SESSION['login']) != 42) // ID a changer a modérateur et admin
 {
     exit;
-    
 } else {
 
     $listecate = $bdd->query('SELECT * FROM categories ORDER BY id ASC');
@@ -14,18 +13,26 @@ if (isset($_SESSION['login']) != 1337 || isset($_SESSION['login']) != 42) // ID 
     $requtilisateur = $bdd->prepare('SELECT * FROM utilisateurs WHERE id = ?'); // créer une requete qui va récuperer tout de mon utilisateur de mon id actuel
     $requtilisateur->execute(array($getid)); // return le tableau de mon utilisateur
     $infoutilisateur = $requtilisateur->fetch(); // récupere les informations que j'appelle
+
     $a_msg = "";
 
     if (isset($_POST['submit_article'])) {
 
         $titre = htmlspecialchars($_POST['titre']);
         $article = htmlspecialchars($_POST['article']);
+        $titrereq = $bdd->prepare("SELECT * FROM articles WHERE titre = ?"); // SAVOIR SI LE MEME LOGIN EST PRIS
+        $titrereq->execute(array($titre));
+        $titreexist = $titrereq->rowCount(); // rowCount = Si une ligne existe = PAS BON 
+
 
         if (isset($_POST['article']) && !empty($_POST['article'])) {
             $articlelenght = strlen($_POST['article']);
 
             if ($articlelenght > 5000)
-                $a_msg = "Votre article ne doit pas dépasser 5000 caractères !<br><br>";
+                $a_msg = "<span style='color:red'>Votre article ne doit pas dépassé les 5000 caractères !</span><br><br>";
+
+            if ($titreexist !== 0)
+                $a_msg = "<span style='color:red'>Le titre est déjà utilisé !</span><br><br>";
 
             if ($a_msg == "") {
                 $req = $bdd->query('SELECT id FROM categories WHERE nom ="' . $_POST['select'] . '"');
