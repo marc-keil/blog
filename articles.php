@@ -99,7 +99,7 @@ $articles = $req->fetchAll();
                             
                             <div class="texte_article">
                                 <?php echo "article : "."<br>" ?>
-                                <a href="article.php?article=<?= $article["id"]; ?>">
+                                <a class="ahref"href="article.php?article=<?= $article["id"]; ?>">
                                     <?php  echo strip_tags($article["article"]);  ?>
                 </a>
                             </div>
