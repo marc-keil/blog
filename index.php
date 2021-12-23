@@ -31,21 +31,25 @@ $article = $requetearticle->fetchAll();
     </header>
 
     <main>
-        <?php foreach ($article as $a) { ?>
-            <div class="jaimecentrer">
+        <?php foreach ($article as $a) { ?> <div class="jaimecentrer">
                 <h1><?= $a['titre'] ?></h1>
                 <h2>Catégorie : <?= $a['nom'] ?></h2><br>
-                <div class="letextewoula">
-                    <p><?= $a['article'] ?>
+                <?php
+                $articlelenght = strlen($a['article']);
+                if ($articlelenght > 200) { ?>
+                    <div class="letextewoula">
+                        <p><?= $a['article'] ?>
 
-                        <?php
-                        $articlelenght = strlen($a['article']);
-                        if ($articlelenght > 200) { ?>
+
                             <a class="charlie" href="article.php?article=<?= $a['id'] ?>"><br>Lire la suite de l'article...</a>
-                        <?php } ?>
+                    </div>
+                <?php } else { ?>
+                    <div class="text-center">
+                        <a class="charlie" href="article.php?article=<?= $a['id'] ?>"><?= $a['article'] ?></a>
+                    </div>
+                <?php } ?>
+                </p>
 
-                    </p>
-                </div>
                 <br>
                 <p>Publié par : <?= $a['login'] ?></p>
             <?php  } ?>

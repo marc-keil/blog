@@ -28,20 +28,6 @@ $pages = ceil($nbArticles / $parPage);
 $premier = ($currentPage * $parPage) - $parPage;
 
 
-$lacateg = $_GET['categorie'];
-$reqCategorie = $bdd->prepare("SELECT * FROM categories WHERE id = ?");
-$reqCategorie->execute(array($lacateg));
-$categories = $reqCategorie->fetchAll();
-
-$sql = "SELECT articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login FROM `articles` INNER JOIN categories ON articles.id_categorie = categories.id INNER JOIN utilisateurs ON utilisateurs.id = articles.id_utilisateur WHERE categories.id = :id_categorie ORDER BY date DESC LIMIT :premier , :parpage; ";
-$req = $bdd->prepare($sql);
-$req->bindValue(':premier', $premier, PDO::PARAM_INT);
-$req->bindValue(':id_categorie', $lacateg, PDO::PARAM_INT);
-$req->bindValue(':parpage', $parPage, PDO::PARAM_INT);
-$req->execute();
-
-// on récupère toute les valeurs dans notre dictionnaire
-$articles = $req->fetchAll();
 
 // $sqlUser = "SELECT a.article, u.login, a.date FROM articles AS a INNER JOIN utilisateurs AS u ON a.id_utilisateur = u.id ORDER BY date  ";
 // $reqUser = $bdd->prepare($sqlUser);
@@ -71,10 +57,28 @@ $articles = $req->fetchAll();
     <header>
         <?php
         if (isset($_SESSION['login'])) { // si le gadjo est co 
-            include_once("include/headeronline.php"); //tu mets ça
+            include_once("include/headeronline.php"); //tu mets 
+
         } else {
             include_once('include/header.php'); //sinon ça 
         }
+        if(isset($_GET["categorie"])){
+            $lacateg = $_GET['categorie'];
+
+            $sql = "SELECT articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login 
+            FROM `articles` 
+            INNER JOIN categories ON articles.id_categorie = categories.id 
+            INNER JOIN utilisateurs ON utilisateurs.id = articles.id_utilisateur 
+            WHERE categories.id = :id_categorie ORDER BY date DESC LIMIT :premier , :parpage; ";
+
+            $req = $bdd->prepare($sql);
+            $req->bindValue(':premier', $premier, PDO::PARAM_INT);
+            $req->bindValue(':id_categorie', $lacateg, PDO::PARAM_INT);
+            $req->bindValue(':parpage', $parPage, PDO::PARAM_INT);
+            $req->execute();
+            
+            // on récupère toute les valeurs dans notre dictionnaire
+            $articles = $req->fetchAll();
         ?>
     </header>
     <div>
@@ -110,11 +114,15 @@ $articles = $req->fetchAll();
                         </div>
 
                         <hr class="text-light">
-                    <?php } ?>
+
 
 
                     </article>
                 </section>
+            <?php }
+            
+            
+            ?>
                 <nav>
                     <ul class="pagination align-item-center">
                         <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
@@ -124,16 +132,96 @@ $articles = $req->fetchAll();
                             <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
                                 <a href="articles.php?page=<?= $page ?>&categorie=<?= $lacateg ?>" class="page-link"><?= $page ?></a>
                             </li>
-                        <?php endfor ?>
+                        <?php endfor; ?>
                         <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
                             <a href="articles.php?page=<?= $currentPage + 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Suivante</a>
                         </li>
                     </ul>
                 </nav>
+
+            <?php //sinon on  affiche cette pagination
+            } else {
+                $sql = "SELECT articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login 
+                FROM `articles` 
+                INNER JOIN categories ON articles.id_categorie = categories.id 
+                INNER JOIN utilisateurs ON utilisateurs.id = articles.id_utilisateur 
+                WHERE categories.id = categories.id ORDER BY date DESC LIMIT :premier , :parpage; ";
+                
+                $req = $bdd->prepare($sql);
+                $req->bindValue(':premier', $premier, PDO::PARAM_INT);
+                // $req->bindValue(':id_categorie', $lacateg, PDO::PARAM_INT);
+                $req->bindValue(':parpage', $parPage, PDO::PARAM_INT);
+                $req->execute();
+                
+                // on récupère toute les valeurs dans notre dictionnaire
+                $articles = $req->fetchAll();
+            ?>
+        </header>
+        <div>
+            <main class="container">
+                <h1 class="text-light text-center">Listes des articles</h1>
+                <?php
+                foreach ($articles as $article) { ?>
+                    <section class="pt-5">
+                        <article class="d-flex flex-column ">
+    
+                            <h2 class="text-light text-center">
+                                <?php echo "titre : " . strip_tags($article["titre"]); ?>
+                            </h2>
+                            <h3 class="text-light text-center">
+                                <?php
+                                echo "catégorie : " . strip_tags($lacateg)
+                                ?>
+                            </h3>
+    
+    
+                            <div class="texte_article">
+                                <?php echo "article : " . "<br>" ?>
+                                <a class="ahref" href="article.php?article=<?= $article["id"]; ?>">
+                                    <?php echo strip_tags($article["article"]);  ?>
+                                </a>
+                            </div>
+                            <div class="text-light text-center">
+                                <p>
+                                    <?php echo  "publié le :" . " " . $article["date"]; ?>
+                                </p>
+                                <p>
+                                    <?php echo "par : " . $article["login"] ?>
+                            </div>
+    
+                            <hr class="text-light">
+    
+    
+    
+                        </article>
+                    </section>
+                <?php }
+                
+                
+                
+            ?>
+                <nav>
+                    <ul class="pagination align-item-center">
+                        <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                            <a href="articles.php?page=<?= $currentPage - 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Précédente</a>
+                        </li>
+                        <?php for ($page = 1; $page <= $pages; $page++) : ?>
+                            <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
+                                <a href="articles.php?page=<?= $page ?>&categorie=<?= $lacateg ?>" class="page-link"><?= $page ?></a>
+                            </li>
+                        <?php endfor; ?>
+                        <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                            <a href="articles.php?page=<?= $currentPage + 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Suivante</a>
+                        </li>
+                    </ul>
+                </nav>
+
+            <?php } ?>
+
         </main>
     </div>
     <footer>
-        <?php include_once("include/footer.php")   ?>
+        <?php include_once("include/footer.php");   ?>
     </footer>
 </body>
 
