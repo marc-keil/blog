@@ -18,7 +18,8 @@ $article = $requetearticle->fetchAll();
 
     <title>Index</title>
 </head>
-
+<!-- background -->
+<div class="az">
 <body>
     <header>
         <?php
@@ -44,7 +45,7 @@ $article = $requetearticle->fetchAll();
                             <a class="charlie" href="article.php?article=<?= $a['id'] ?>"><br>Lire la suite de l'article...</a>
                     </div>
                 <?php } else { ?>
-                    <div class="text-center">
+                    <div class="text-center text-light">
                         <a class="charlie" href="article.php?article=<?= $a['id'] ?>"><?= $a['article'] ?></a>
                     </div>
                 <?php } ?>
@@ -62,5 +63,6 @@ $article = $requetearticle->fetchAll();
     </footer>
 
 </body>
+</div>
 
 </html>

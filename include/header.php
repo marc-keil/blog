@@ -35,7 +35,10 @@ $categories = $req->fetchAll();
                                 Articles
                             </a>
                             <div class="dropdown-content">
+
+                            <a href="articles.php">Tous les articles</a>
                                 <?php
+                                
                                 foreach($categories as $categorie){
                                 ?>
                                 <a href="articles.php?categorie=<?= $categorie["id"] ?>"><?php echo $categorie["nom"] ?></a>
