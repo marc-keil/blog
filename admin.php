@@ -237,25 +237,25 @@ if (isset($_GET['supprimerarticle']) && !empty($_GET['supprimerarticle'])) {
                 </thead>
                 <?php while ($u = $utilisateurs->fetch()) { ?>
 
-                            <form class="" method="POST">
-""
-                                <input id="id" type="hidden" name="id" value="<?php echo $u['idu']; ?>">
-                                <label class="text-light" for="newlogin"></label>
-                                <td><input class="" id="newlogin" type="text" name="newlogin" value="<?php echo $u['login']; ?>"></td>
-                                <label class="text-light" for="newmail"></label>
-                                <td><input class="" id="newmail" type="mail" name="newmail" value="<?php echo $u['email']; ?>"></td>
-                                <td>
-                                    <select name="select" id="select">
-                                        <?php foreach ($lis as $key => $value) { ?>
-                                            <option <?= $u['id_droits'] == $value['id'] ? "selected" : NULL ?> value="<?= $value['id'] ?>"><?= $value['nom'] ?></option>
-                                        <?php
-                                        } ?>
-                                    </select>
-                                </td>
-                                <td class=test><a class="btn btn-danger" href="admin.php?supprimer=<?= $u['idu'] ?>">Bannir</a></td>
-                                <td class=test><input id="" type="submit" class="btn btn-primary" name="submit" value="Modifier !"></td>
-                            </form>
-                            </tr>
+                    <form class="" method="POST">
+                        ""
+                        <input id="id" type="hidden" name="id" value="<?php echo $u['idu']; ?>">
+                        <label class="text-light" for="newlogin"></label>
+                        <td><input class="" id="newlogin" type="text" name="newlogin" value="<?php echo $u['login']; ?>"></td>
+                        <label class="text-light" for="newmail"></label>
+                        <td><input class="" id="newmail" type="mail" name="newmail" value="<?php echo $u['email']; ?>"></td>
+                        <td>
+                            <select name="select" id="select">
+                                <?php foreach ($lis as $key => $value) { ?>
+                                    <option <?= $u['id_droits'] == $value['id'] ? "selected" : NULL ?> value="<?= $value['id'] ?>"><?= $value['nom'] ?></option>
+                                <?php
+                                } ?>
+                            </select>
+                        </td>
+                        <td class=test><a class="btn btn-danger" href="admin.php?supprimer=<?= $u['idu'] ?>">Bannir</a></td>
+                        <td class=test><input id="" type="submit" class="btn btn-primary" name="submit" value="Modifier !"></td>
+                    </form>
+                    </tr>
                 <?php } ?>
             </table>
 
@@ -313,7 +313,7 @@ if (isset($_GET['supprimerarticle']) && !empty($_GET['supprimerarticle'])) {
                         </form>
                     </tr>
                 <?php } ?>
-                                    
+
             </table>
             <br>
 

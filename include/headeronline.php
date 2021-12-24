@@ -33,6 +33,7 @@ $categories = $req->fetchAll();
                                 Articles
                             </a>
                             <div class="dropdown-content">
+                                <a href="articles.php">Tous les articles</a>
                             <?php
                                 foreach($categories as $categorie){
                                 ?>
@@ -47,8 +48,8 @@ $categories = $req->fetchAll();
                         </a>
                     </td>
                     <td class="nav-item">
-                        <form class="ml-5 my-2 d-flex align-items-center" action="" method="get">
-                            <input class="btn btn-primary " name="off" type="submit" value="Se déconnecter">
+                        <form class="" action="" method="get">
+                            <input class="btn btn-primary " name="off" type="submit" value="Déconnexion">
                         </form>
                     </td>
                 </tr>
