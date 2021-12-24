@@ -58,7 +58,7 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
             $req2 = $bdd->prepare($sql2);
             
             // on éxécute la requête
-            $req2->execute(array($lacateg));
+            $req2->execute(array($_GET["categorie"]));
             // on récupère le nombre d'aritcle
             $result = $req2->fetch();
             $nbArticles = (int) $result["nb_articles"];
@@ -76,16 +76,17 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
 
             
-
-            $sql = "SELECT articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login 
+            $cat = $_GET["categorie"];
+            $sql = 
+            "SELECT articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login 
             FROM `articles` 
             INNER JOIN categories ON articles.id_categorie = categories.id 
             INNER JOIN utilisateurs ON utilisateurs.id = articles.id_utilisateur 
-            WHERE categories.id = id_categorie ORDER BY date DESC LIMIT :premier , :parpage; ";
+            WHERE categories.id = :id_categorie ORDER BY date DESC LIMIT :premier , :parpage; ";
 
             $req = $bdd->prepare($sql);
             $req->bindValue(':premier', $premier, PDO::PARAM_INT);
-            
+            $req->bindValue(':id_categorie', $lacateg, PDO::PARAM_INT);
             $req->bindValue(':parpage', $parPage, PDO::PARAM_INT);
             $req->execute();
 
