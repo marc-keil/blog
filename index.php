@@ -34,24 +34,31 @@ $article = $requetearticle->fetchAll();
         </header>
 
         <main>
-            
-            <?php foreach ($article as $a) { ?> <div class="jaimecentrer">
-                    <h1><?= $a['titre'] ?></h1>
-                    <h2>Catégorie : <?= $a['nom'] ?></h2><br>
+
+            <?php foreach ($article as $a) { ?>
+                <div class="jaimecentrer">
+                    <h1>
+                        <?= $a['titre'] ?>
+                    </h1>
+                    <h2>
+                        Catégorie : <?= $a['nom'] ?>
+                    </h2>
+                    <br>
                     <?php
                     $charMax = 200;
                     $articlelenght = strlen($a['article']);
                     if ($articlelenght > $charMax) { ?>
                         <div class="letextewoula">
 
-                            <p><?php $string = substr($a['article'], 0, $charMax);
+                            <p><?php $string = substr($a['article'], 0, $charMax) . "...";
                                 echo $string;
                                 ?>
                                 <br>
-                                <a class="charlie" href="article.php?article=<?= $a['id'] ?>">
+                                <a class="btn btn-info" href="article.php?article=<?= $a['id'] ?>">
                                     Lire la suite de l'article
                                 </a>
                         </div>
+                        
                     <?php } else { ?>
                         <div class="text-center text-light">
                             <a class="charlie" href="article.php?article=<?= $a['id'] ?>"><?= $a['article'] ?></a>
