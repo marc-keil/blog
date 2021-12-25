@@ -217,7 +217,21 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
                                 <div class="texte_article">
                                     <?php echo "article : " . "<br>" ?>
                                     <a class="ahref" href="article.php?article=<?= $article["id"]; ?>">
-                                        <?php echo strip_tags($article["article"]);  ?>
+
+                                        <?php 
+                                        $countArticle = strlen($article["article"]);
+                                        if($countArticle > 200){
+                                        echo strip_tags($article["article"]); 
+                                        
+                                    } else {
+                                        ?>
+                                        <div class="text-center text-light">
+                                        <a class="charlie" href="article.php?article=<?= $article['id'] ?>"><?= $article['article'] ?></a>
+                                    </div>
+                                    <?php
+                                    }
+
+                                        ?>
                                     </a>
                                 </div>
                                 <div class="text-light text-center">
