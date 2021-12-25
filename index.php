@@ -20,49 +20,49 @@ $article = $requetearticle->fetchAll();
 </head>
 <!-- background -->
 <div class="az">
-<body>
-    <header>
-        <?php
-        if (isset($_SESSION['login'])) { // si le gadjo est co 
-            include_once("include/headeronline.php"); //tu mets ça
-        } else {
-            include_once('include/header.php'); //sinon ça 
-        }
-        ?>
-    </header>
 
-    <main>
-        <?php foreach ($article as $a) { ?> <div class="jaimecentrer">
-                <h1><?= $a['titre'] ?></h1>
-                <h2>Catégorie : <?= $a['nom'] ?></h2><br>
-                <?php
-                $articlelenght = strlen($a['article']);
-                if ($articlelenght > 200) { ?>
-                    <div class="letextewoula">
-                        <p><?= $a['article'] ?>
+    <body>
+        <header>
+            <?php
+            if (isset($_SESSION['login'])) { // si le gadjo est co 
+                include_once("include/headeronline.php"); //tu mets ça
+            } else {
+                include_once('include/header.php'); //sinon ça 
+            }
+            ?>
+        </header>
 
+        <main>
+            <?php foreach ($article as $a) { ?> <div class="jaimecentrer">
+                    <h1><?= $a['titre'] ?></h1>
+                    <h2>Catégorie : <?= $a['nom'] ?></h2><br>
+                    <?php
+                    $articlelenght = strlen($a['article']);
+                    if ($articlelenght > 200) { ?>
+                        <div class="letextewoula">
+                            <p><?= $a['article'] ?>
 
-                            <a class="charlie" href="article.php?article=<?= $a['id'] ?>"><br>Lire la suite de l'article...</a>
-                    </div>
-                <?php } else { ?>
-                    <div class="text-center text-light">
-                        <a class="charlie" href="article.php?article=<?= $a['id'] ?>"><?= $a['article'] ?></a>
-                    </div>
-                <?php } ?>
-                </p>
+                                <a class="charlie" href="article.php?article=<?= $a['id'] ?>"><br>Lire la suite de l'article...</a>
+                        </div>
+                    <?php } else { ?>
+                        <div class="text-center text-light">
+                            <a class="charlie" href="article.php?article=<?= $a['id'] ?>"><?= $a['article'] ?></a>
+                        </div>
+                    <?php } ?>
+                    </p>
 
-                <br>
-                <p>Publié par : <?= $a['login'] ?></p>
-            <?php  } ?>
-            </div>
-    </main>
-    <footer>
-        <?php
-        include_once('include/footer.php');
-        ?>
-    </footer>
+                    <br>
+                    <p>Publié par : <?= $a['login'] ?></p>
+                <?php  } ?>
+                </div>
+        </main>
+        <footer>
+            <?php
+            include_once('include/footer.php');
+            ?>
+        </footer>
 
-</body>
+    </body>
 </div>
 
 </html>
