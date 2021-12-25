@@ -72,7 +72,7 @@ if (isset($_POST['forminscription'])) {
     </header>
     <div class="az">
     <main>
-        <h2 id="crh2inscription" class="text-light"> Remplissez notre formulaire d'inscription</h2>
+        <h2 id="crh2inscription" class="text-light"> Remplissez tout les champs</h2>
         <br /><br />
         <form method="POST" action="">
             <table id="crtableinscription">

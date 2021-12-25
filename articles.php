@@ -53,10 +53,10 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
             $sql2 = "SELECT COUNT(*) AS `nb_articles` FROM `articles`
             INNER JOIN categories ON articles.id_categorie = categories.id
             WHERE categories.id  = ?  ";
-            
+
             // on prépare la requête
             $req2 = $bdd->prepare($sql2);
-            
+
             // on éxécute la requête
             $req2->execute(array($_GET["categorie"]));
             // on récupère le nombre d'aritcle
@@ -75,10 +75,10 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
 
 
-            
+
             $cat = $_GET["categorie"];
-            $sql = 
-            "SELECT articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login 
+            $sql =
+                "SELECT articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login 
             FROM `articles` 
             INNER JOIN categories ON articles.id_categorie = categories.id 
             INNER JOIN utilisateurs ON utilisateurs.id = articles.id_utilisateur 
@@ -98,7 +98,7 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
         <main class="container">
             <h1 class="text-light text-center">Listes des articles</h1>
             <?php
-            foreach ($articles as $article) { ?>
+            foreach ($articles as $article) { //boucle pour parcourir la base de donnée?>
                 <section class="pt-5">
                     <article class="d-flex flex-column ">
 
@@ -114,9 +114,30 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
                         <div class="texte_article">
                             <?php echo "article : " . "<br>" ?>
-                            <a class="ahref" href="article.php?article=<?= $article["id"]; ?>">
-                                <?php echo strip_tags($article["article"]);  ?>
-                            </a>
+                            <?php
+                            $charMax = 200; // nombre de char max pour l'affichage de l'article
+                            $countArticle = strlen($article["article"]); // on compte le nombre de chat dans l'article
+                            if ($countArticle > $charMax) { // si le nombre de char de l'article est supérieur de 200
+
+
+                                echo strip_tags(substr($article["article"], 0, $charMax) . "..."); // on coupe l'article à 200 avec ... à la fin
+
+                            ?>
+                                <br>
+                                <a class="ahref" href="article.php?article=<?= $article["id"]; ?>">
+                                    <!--lien pour aller sûre l'article en question -->
+                                    Lire la suite de l'article
+                                </a>
+                            <?php
+                            } else {
+                            ?>
+                                <div class="text-center text-light">
+                                    <a class="charlie" href="article.php?article=<?= $article['id'] ?>"><?= $article['article'] ?></a>
+                                </div>
+                            <?php
+                            }
+
+                            ?>
                         </div>
                         <div class="text-light text-center">
                             <p>
@@ -137,11 +158,11 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
             ?>
             <nav>
-                <ul class="pagination align-item-center">
+                <ul class="pagination align-item-center"> <!-- si la page actuelle est sûre la première page on désactive -->
                     <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
                         <a href="articles.php?page=<?= $currentPage - 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Précédente</a>
-                    </li>
-                    <?php for ($page = 1; $page <= $pages; $page++) : ?>
+                    </li> <!-- page actuelle -1  --> 
+                    <?php for ($page = 1; $page <= $pages; $page++) : //boucle pour pouvoir afficher  ?>
                         <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
                             <a href="articles.php?page=<?= $page ?>&categorie=<?= $lacateg ?>" class="page-link"><?= $page ?></a>
                         </li>
@@ -161,8 +182,7 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
             // on prépare la requête
             $req2 = $bdd->prepare($sql2);
             // on éxécute la requête
-            $req2->execute();
-            // on récupère le nombre d'aritcle
+            $req2->execute();            // on récupère le nombre d'aritcle
             $result = $req2->fetch();
             $nbArticles = (int) $result["nb_articles"];
 
@@ -199,6 +219,7 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
             <div>
                 <main class="container">
                     <h1 class="text-light text-center">Listes des articles</h1>
+                    <!-- C'est la même boucle que l'index mais on travaille pas trop main dans la main np -->
                     <?php
                     foreach ($articles as $article) { ?>
                         <section class="pt-5">
@@ -216,23 +237,31 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
                                 <div class="texte_article">
                                     <?php echo "article : " . "<br>" ?>
-                                    <a class="ahref" href="article.php?article=<?= $article["id"]; ?>">
 
-                                        <?php 
-                                        $countArticle = strlen($article["article"]);
-                                        if($countArticle > 200){
-                                        echo strip_tags($article["article"]); 
-                                        
+
+                                    <?php
+                                    $charMax = 200;
+                                    $countArticle = strlen($article["article"]);
+                                    if ($countArticle > $charMax) {
+
+                                        echo strip_tags(substr($article["article"], 0, $charMax) . "...");
+
+                                    ?>
+                                        <br>
+                                        <a class="ahref" href="article.php?article=<?= $article["id"]; ?>">
+                                            Lire la suite de l'article
+                                        </a>
+                                    <?php
                                     } else {
-                                        ?>
+                                    ?>
                                         <div class="text-center text-light">
-                                        <a class="charlie" href="article.php?article=<?= $article['id'] ?>"><?= $article['article'] ?></a>
-                                    </div>
+                                            <a class="charlie" href="article.php?article=<?= $article['id'] ?>"><?= $article['article'] ?></a>
+                                        </div>
                                     <?php
                                     }
 
-                                        ?>
-                                    </a>
+                                    ?>
+
                                 </div>
                                 <div class="text-light text-center">
                                     <p>
