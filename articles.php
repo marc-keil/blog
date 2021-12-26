@@ -45,6 +45,9 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
         } else {
             include_once('include/header.php'); //sinon ça 
         }
+        ?> 
+        </header>
+        <?php
         if (isset($_GET["categorie"])) {
 
             $lacateg = $_GET['categorie'];
@@ -93,12 +96,13 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
             // on récupère toute les valeurs dans notre dictionnaire
             $articles = $req->fetchAll();
         ?>
-    </header>
+    
     <div>
         <main class="container">
             <h1 class="text-light text-center">Listes des articles</h1>
             <?php
-            foreach ($articles as $article) { //boucle pour parcourir la base de donnée?>
+            foreach ($articles as $article) { //boucle pour parcourir la base de donnée
+            ?>
                 <section class="pt-5">
                     <article class="d-flex flex-column ">
 
@@ -119,12 +123,11 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
                             $countArticle = strlen($article["article"]); // on compte le nombre de chat dans l'article
                             if ($countArticle > $charMax) { // si le nombre de char de l'article est supérieur de 200
 
-
                                 echo strip_tags(substr($article["article"], 0, $charMax) . "..."); // on coupe l'article à 200 avec ... à la fin
 
                             ?>
                                 <br>
-                                <a class="ahref" href="article.php?article=<?= $article["id"]; ?>">
+                                <a class="btn btn-info" href="article.php?article=<?= $article["id"]; ?>">
                                     <!--lien pour aller sûre l'article en question -->
                                     Lire la suite de l'article
                                 </a>
@@ -158,12 +161,14 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
             ?>
             <nav>
-                <ul class="pagination align-item-center"> <!-- si la page actuelle est sûre la première page on désactive -->
+                <ul class="pagination align-item-center">
+                    <!-- si la page actuelle est sûre la première page on désactive -->
                     <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
                         <a href="articles.php?page=<?= $currentPage - 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Précédente</a>
-                    </li> <!-- page actuelle -1  --> 
-                    <?php for ($page = 1; $page <= $pages; $page++) : //boucle pour pouvoir afficher  ?>
-                        <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
+                    </li> <!-- page actuelle -1  -->
+                    <?php for ($page = 1; $page <= $pages; $page++) : //boucle pour pouvoir afficher les chiffre de la pagination
+                    ?>
+                        <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>"> 
                             <a href="articles.php?page=<?= $page ?>&categorie=<?= $lacateg ?>" class="page-link"><?= $page ?></a>
                         </li>
                     <?php endfor; ?>
@@ -175,8 +180,6 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
         <?php //sinon on  affiche cette pagination
         } else {
-
-
             // on détermine le nombre total d'articles 
             $sql2 = "SELECT COUNT(*) AS `nb_articles` FROM `articles` ";
             // on prépare la requête
@@ -234,11 +237,8 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
                                     ?>
                                 </h3>
 
-
                                 <div class="texte_article">
                                     <?php echo "article : " . "<br>" ?>
-
-
                                     <?php
                                     $charMax = 200;
                                     $countArticle = strlen($article["article"]);
@@ -248,7 +248,7 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
                                     ?>
                                         <br>
-                                        <a class="ahref" href="article.php?article=<?= $article["id"]; ?>">
+                                        <a class="btn btn-info" href="article.php?article=<?= $article["id"]; ?>">
                                             Lire la suite de l'article
                                         </a>
                                     <?php

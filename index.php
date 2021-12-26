@@ -36,6 +36,7 @@ $article = $requetearticle->fetchAll();
         <main>
 
             <?php foreach ($article as $a) { ?>
+
                 <div class="jaimecentrer">
                     <h1>
                         <?= $a['titre'] ?>
@@ -68,9 +69,11 @@ $article = $requetearticle->fetchAll();
 
                     <br>
                     <p>Publié par : <?= $a['login'] ?></p>
-                    <hr class="text-light">
-                <?php  } ?>
                 </div>
+                <hr class="text-light">
+            <?php  } ?>
+
+
         </main>
         <footer>
             <?php
