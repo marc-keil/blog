@@ -251,21 +251,22 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
                                         echo strip_tags(substr($article["article"], 0, $charMax) . "...");
 
                                     ?>
-                                        <br>
+                                        <div class="mt-3">
                                         <a class="btn btn-info" href="article.php?article=<?= $article["id"]; ?>">
                                             Lire la suite de l'article
                                         </a>
+                                        </div>
                                     <?php
                                     } else {
                                     ?>
-                                        <div class="text-center text-light">
+                                        <div class="text-center text-light mt-3">
                                             <a class="charlie" href="article.php?article=<?= $article['id'] ?>"><?= $article['article'] ?></a>
                                         </div>
                                     <?php
                                     }
 
                                     ?>
-
+        <br>
                                 </div>
                                 <div class="text-light text-center">
                                     <p>
