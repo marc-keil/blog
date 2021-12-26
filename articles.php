@@ -81,7 +81,7 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
             $cat = $_GET["categorie"];
             $sql =
-                "SELECT articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login 
+                "SELECT categories.nom, articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login 
             FROM `articles` 
             INNER JOIN categories ON articles.id_categorie = categories.id 
             INNER JOIN utilisateurs ON utilisateurs.id = articles.id_utilisateur 
@@ -111,7 +111,7 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
                         </h2>
                         <h3 class="text-light text-center">
                             <?php
-                            echo "catégorie : " . strip_tags($lacateg)
+                            echo "catégorie : " . strip_tags($article["nom"])
                             ?>
                         </h3>
 
