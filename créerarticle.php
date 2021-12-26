@@ -5,7 +5,7 @@ session_start();
 
 if (isset($_SESSION['login']) != 1337 || isset($_SESSION['login']) != 42) // ID a changer a modérateur et admin
 {
-    exit;
+    exit; // le header location ne fonctionne pas(erreur serveur interne)
 } else {
 
     $listecate = $bdd->query('SELECT * FROM categories ORDER BY id ASC');
