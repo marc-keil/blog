@@ -126,14 +126,16 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
                                 echo strip_tags(substr($article["article"], 0, $charMax) . "..."); // on coupe l'article à 200 avec ... à la fin
 
                             ?>
-                                <br>
+                                <div class="mt-3">
                                 <a class="btn btn-info" href="article.php?article=<?= $article["id"]; ?>">
                                     <!--lien pour aller sûre l'article en question -->
                                     Lire la suite de l'article
                                 </a>
+                                </div>
                             <?php
                             } else {
                             ?>
+                            <br>
                                 <div class="text-center text-light">
                                     <a class="charlie" href="article.php?article=<?= $article['id'] ?>"><?= $article['article'] ?></a>
                                 </div>
@@ -142,10 +144,12 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
                             ?>
                         </div>
+                        <br>
                         <div class="text-light text-center">
                             <p>
                                 <?php echo  "publié le :" . " " . $article["date"]; ?>
                             </p>
+
                             <p>
                                 <?php echo "par : " . $article["login"] ?>
                         </div>
