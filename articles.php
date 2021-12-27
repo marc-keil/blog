@@ -64,7 +64,7 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
             $req2->execute(array($_GET["categorie"]));
             // on récupère le nombre d'aritcle
             $result = $req2->fetch();
-            $nbArticles = (int) $result["nb_articles"];
+            $nbArticles = (int) $result["nb_articles"]  ;
 
             // on limite par 5 le nb d'article par page
             $parPage = 5;
