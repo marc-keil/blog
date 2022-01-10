@@ -151,7 +151,15 @@ if (isset($_SESSION['id'])) {
         </main>
         <footer>
 
-            <?php include_once("include/footer.php"); ?>
+            <?php if (!isset($_SESSION["login"])) { // si l'utilisateur n'est pas connecté
+                include_once('include/footer.php');
+            } else if (isset($_SESSION["id_droits"]) == 1337) { //footer de l'admin
+                include_once("include/footerAdmin.php");
+            } else if (isset($_SESSION["id_droits"]) == 42) { //footer du modo
+                include_once("include/footerModo.php");
+            } else { // footer de l'utilisateur connecté
+                include_once("include/footerOnline.php");
+            } ?>
         </footer>
     </div>
 

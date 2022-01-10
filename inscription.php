@@ -14,7 +14,7 @@ if (isset($_POST['forminscription'])) {
         $loginlenght = strlen($login);
         $passwordlenght = strlen($password);
         $password2lenght = strlen($password2);
-        $id_droits= 1;
+        $id_droits = 1;
 
         $requetelogin = $bdd->prepare("SELECT * FROM utilisateurs WHERE login = ?"); // SAVOIR SI LE MEME LOGIN EST PRIS
         $requetelogin->execute(array($login));
@@ -39,7 +39,7 @@ if (isset($_POST['forminscription'])) {
         if ($erreur == "") {
             $hachage = password_hash($password, PASSWORD_BCRYPT);
             $insertmbr = $bdd->prepare("INSERT INTO utilisateurs(id_droits,login, password, email) VALUES(?,?,?,?)"); // Prépare une requête à l'exécution et retourne un objet (PDO)
-            $insertmbr->execute(array($id_droits,$login, $hachage, $email)); // Exécute une requête préparée PDO
+            $insertmbr->execute(array($id_droits, $login, $hachage, $email)); // Exécute une requête préparée PDO
             $erreur = "Votre compte à été crée !";
             header('Location: connexion.php');
             exit();
@@ -71,64 +71,72 @@ if (isset($_POST['forminscription'])) {
         ?>
     </header>
     <div class="az">
-    <main>
-        <h2 id="crh2inscription" class="text-light"> Remplissez tout les champs</h2>
-        <br /><br />
-        <form method="POST" action="">
-            <table id="crtableinscription">
-                <tr>
-                    <td class="text-light" align="right">
-                        <label class="crlabelinscription" for="login">Login : </label>
+        <main>
+            <h2 id="" class=""> Remplissez tout les champs</h2>
+            <br /><br />
+            <form method="POST" action="">
+                <table id="">
+                    <tr>
+                        <td class="" align="right">
+                            <label class="" for="login">Login : </label>
+                        </td>
+                        <td>
+                            <input class="" type="text" placeholder="Votre login" name="login" id="login" value="<?php if (isset($login)) {
+                                                                                                                        echo $login;
+                                                                                                                    } ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="" align="right">
+                            <label class="" for="email">Email : </label>
+                        </td>
+                        <td>
+                            <input class="" type="email" placeholder="Votre email" name="email" id="email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="" align="right">
+                            <label class="" for="password">Password : </label>
+                        </td>
+                        <td>
+                            <input class="" t type="password" placeholder="Votre password" name="password" id="password">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="" align="right">
+                            <label class="" for="password2">Confirmation du password : </label>
+                        </td>
+                        <td>
+                            <input class="" type="password" placeholder="Confirmation password" name="password2" id="password2">
+                        </td>
+                    </tr>
                     </td>
-                    <td>
-                        <input class="crinputinscription" type="text" placeholder="Votre login" name="login" id="login" value="<?php if (isset($login)) {
-                                                                                                                                    echo $login;
-                                                                                                                                } ?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-light" align="right">
-                        <label class="crlabelinscription" for="email">Email : </label>
-                    </td>
-                    <td>
-                        <input class="crinputinscription" t type="email" placeholder="Votre email" name="email" id="email">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-light" align="right">
-                        <label class="crlabelinscription" for="password">Password : </label>
-                    </td>
-                    <td>
-                        <input class="crinputinscription" t type="password" placeholder="Votre password" name="password" id="password">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-light" align="right">
-                        <label class="crlabelinscription" for="password2">Confirmation du password : </label>
-                    </td>
-                    <td>
-                        <input class="crinputinscription" t type="password" placeholder="Confirmation password" name="password2" id="password2">
-                    </td>
-                </tr>
-                </td>
 
 
 
-            </table>
-            <br />
-                        <input id="ee" class="btn btn-primary" t type="submit" name="forminscription" class="forminscription" value="Je m'inscris"><br><BR><br>
+                </table>
+                <br />
+                <input id="ee" class="btn btn-primary" t type="submit" name="forminscription" class="forminscription" value="Je m'inscris"><br><BR><br>
 
-        </form>
-        <?php
-        if (isset($erreur)) {
-            echo '<font color="red">' . $erreur . '</font>';
-        }
-        ?>
-    </main>
+            </form>
+            <?php
+            if (isset($erreur)) {
+                echo '<font color="red">' . $erreur . '</font>';
+            }
+            ?>
+        </main>
     </div>
     <footer>
         <?php
-        include_once('include/footer.php');
+        if (!isset($_SESSION["login"])) { // si l'utilisateur n'est pas connecté
+            include_once('include/footer.php');
+        } else if (isset($_SESSION["id_droits"]) == 1337) { //footer de l'admin
+            include_once("include/footerAdmin.php");
+        } else if (isset($_SESSION["id_droits"]) == 42) { //footer du modo
+            include_once("include/footerModo.php");
+        } else { // footer de l'utilisateur connecté
+            include_once("include/footerOnline.php");
+        }
         ?>
     </footer>
 </body>

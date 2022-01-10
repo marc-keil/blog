@@ -72,12 +72,15 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
 
     <body>
         <header>
-            <?php if (isset($_SESSION['login'])) {
+
+            <?php
+            if (isset($_SESSION['login'])) {
                 include_once("include/headeronline.php");
             } else {
                 include_once('include/header.php');
             }
             ?>
+
         </header>
         <div class="az">
             <main>
@@ -135,12 +138,21 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
         </div>
         <footer>
             <?php
-            include_once('include/footer.php');
+            if (!isset($_SESSION["login"])) { // si l'utilisateur n'est pas connecté
+                include_once('include/footer.php');
+            } else if (isset($_SESSION["login"])) { // footer de l'utilisateur connecté
+                include_once("include/footerOnline.php");
+            } else if (isset($_SESSION["id_droits"]) == 1337) { //footer de l'admin
+                include_once("include/footerAdmin.php");
+            } else if (isset($_SESSION["id_droits"]) == 42) { //footer du modo
+                include_once("include/footerModo.php");
+            }
             ?>
         </footer>
     </body>
 
     </html>
+
 <?php
 } else {
     header("Location: connexion.php");

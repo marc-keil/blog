@@ -45,144 +45,144 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
         } else {
             include_once('include/header.php'); //sinon ça 
         }
-        ?> 
-        </header>
-        <?php
-        if (isset($_GET["categorie"])) {
+        ?>
+    </header>
+    <?php
+    if (isset($_GET["categorie"])) {
 
-            $lacateg = $_GET['categorie'];
+        $lacateg = $_GET['categorie'];
 
-            // on détermine le nombre total d'articles 
-            $sql2 = "SELECT COUNT(*) AS `nb_articles` FROM `articles`
+        // on détermine le nombre total d'articles 
+        $sql2 = "SELECT COUNT(*) AS `nb_articles` FROM `articles`
             INNER JOIN categories ON articles.id_categorie = categories.id
             WHERE categories.id  = ?  ";
 
-            // on prépare la requête
-            $req2 = $bdd->prepare($sql2);
+        // on prépare la requête
+        $req2 = $bdd->prepare($sql2);
 
-            // on éxécute la requête
-            $req2->execute(array($_GET["categorie"]));
-            // on récupère le nombre d'aritcle
-            $result = $req2->fetch();
-            $nbArticles = (int) $result["nb_articles"]  ;
+        // on éxécute la requête
+        $req2->execute(array($_GET["categorie"]));
+        // on récupère le nombre d'aritcle
+        $result = $req2->fetch();
+        $nbArticles = (int) $result["nb_articles"];
 
-            // on limite par 5 le nb d'article par page
-            $parPage = 5;
-            //on calcule le nombre de page total
-            $pages = ceil($nbArticles / $parPage);
-            //var_dump($pages)
+        // on limite par 5 le nb d'article par page
+        $parPage = 5;
+        //on calcule le nombre de page total
+        $pages = ceil($nbArticles / $parPage);
+        //var_dump($pages)
 
-            //calcule du 1er article de la page
-            $premier = ($currentPage * $parPage) - $parPage;
-
-
+        //calcule du 1er article de la page
+        $premier = ($currentPage * $parPage) - $parPage;
 
 
 
-            $cat = $_GET["categorie"];
-            $sql =
-                "SELECT categories.nom, articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login 
+
+
+        $cat = $_GET["categorie"];
+        $sql =
+            "SELECT categories.nom, articles.id, articles.article, articles.id_utilisateur, articles.id_categorie, articles.date, articles.titre, utilisateurs.login 
             FROM `articles` 
             INNER JOIN categories ON articles.id_categorie = categories.id 
             INNER JOIN utilisateurs ON utilisateurs.id = articles.id_utilisateur 
             WHERE categories.id = :id_categorie ORDER BY date DESC LIMIT :premier , :parpage; ";
 
-            $req = $bdd->prepare($sql);
-            $req->bindValue(':premier', $premier, PDO::PARAM_INT);
-            $req->bindValue(':id_categorie', $lacateg, PDO::PARAM_INT);
-            $req->bindValue(':parpage', $parPage, PDO::PARAM_INT);
-            $req->execute();
+        $req = $bdd->prepare($sql);
+        $req->bindValue(':premier', $premier, PDO::PARAM_INT);
+        $req->bindValue(':id_categorie', $lacateg, PDO::PARAM_INT);
+        $req->bindValue(':parpage', $parPage, PDO::PARAM_INT);
+        $req->execute();
 
-            // on récupère toute les valeurs dans notre dictionnaire
-            $articles = $req->fetchAll();
-        ?>
-    
-    <div>
-        <main class="container">
-            <h1 class="text-light text-center">Listes des articles</h1>
-            <?php
-            foreach ($articles as $article) { //boucle pour parcourir la base de donnée
-            ?>
-                <section class="pt-5">
-                    <article class="d-flex flex-column ">
+        // on récupère toute les valeurs dans notre dictionnaire
+        $articles = $req->fetchAll();
+    ?>
 
-                        <h2 class="text-light text-center">
-                            <?php echo "titre : " . strip_tags($article["titre"]); ?>
-                        </h2>
-                        <h3 class="text-light text-center">
-                            <?php
-                            echo "catégorie : " . strip_tags($article["nom"])
-                            ?>
-                        </h3>
+        <div>
+            <main class="container">
+                <h1 class="text-light text-center">Listes des articles</h1>
+                <?php
+                foreach ($articles as $article) { //boucle pour parcourir la base de donnée
+                ?>
+                    <section class="pt-5">
+                        <article class="d-flex flex-column ">
+
+                            <h2 class="text-light text-center">
+                                <?php echo "titre : " . strip_tags($article["titre"]); ?>
+                            </h2>
+                            <h3 class="text-light text-center">
+                                <?php
+                                echo "catégorie : " . strip_tags($article["nom"])
+                                ?>
+                            </h3>
 
 
-                        <div class="texte_article">
-                            <?php echo "article : " . "<br>" ?>
-                            <?php
-                            $charMax = 200; // nombre de char max pour l'affichage de l'article
-                            $countArticle = strlen($article["article"]); // on compte le nombre de chat dans l'article
-                            if ($countArticle > $charMax) { // si le nombre de char de l'article est supérieur de 200
+                            <div class="texte_article">
+                                <?php echo "article : " . "<br>" ?>
+                                <?php
+                                $charMax = 200; // nombre de char max pour l'affichage de l'article
+                                $countArticle = strlen($article["article"]); // on compte le nombre de chat dans l'article
+                                if ($countArticle > $charMax) { // si le nombre de char de l'article est supérieur de 200
 
-                                echo strip_tags(substr($article["article"], 0, $charMax) . "..."); // on coupe l'article à 200 avec ... à la fin
+                                    echo strip_tags(substr($article["article"], 0, $charMax) . "..."); // on coupe l'article à 200 avec ... à la fin
 
-                            ?>
-                                <div class="mt-3">
-                                <a class="btn btn-info" href="article.php?article=<?= $article["id"]; ?>">
-                                    <!--lien pour aller sûre l'article en question -->
-                                    Lire la suite de l'article
-                                </a>
-                                </div>
-                            <?php
-                            } else {
-                            ?>
+                                ?>
+                                    <div class="mt-3">
+                                        <a class="btn btn-info" href="article.php?article=<?= $article["id"]; ?>">
+                                            <!--lien pour aller sûre l'article en question -->
+                                            Lire la suite de l'article
+                                        </a>
+                                    </div>
+                                <?php
+                                } else {
+                                ?>
+                                    <br>
+                                    <div class="text-center text-light">
+                                        <a class="charlie" href="article.php?article=<?= $article['id'] ?>"><?= $article['article'] ?></a>
+                                    </div>
+                                <?php
+                                }
+
+                                ?>
+                            </div>
                             <br>
-                                <div class="text-center text-light">
-                                    <a class="charlie" href="article.php?article=<?= $article['id'] ?>"><?= $article['article'] ?></a>
-                                </div>
-                            <?php
-                            }
+                            <div class="text-light text-center">
+                                <p>
+                                    <?php echo  "publié le :" . " " . $article["date"]; ?>
+                                </p>
 
-                            ?>
-                        </div>
-                        <br>
-                        <div class="text-light text-center">
-                            <p>
-                                <?php echo  "publié le :" . " " . $article["date"]; ?>
-                            </p>
+                                <p>
+                                    <?php echo "par : " . $article["login"] ?>
+                            </div>
 
-                            <p>
-                                <?php echo "par : " . $article["login"] ?>
-                        </div>
-
-                        <hr class="text-light">
+                            <hr class="text-light">
 
 
 
-                    </article>
-                </section>
-            <?php }
+                        </article>
+                    </section>
+                <?php }
 
 
-            ?>
-            <nav>
-                <ul class="pagination align-item-center">
-                    <!-- si la page actuelle est sûre la première page on désactive -->
-                    <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
-                        <a href="articles.php?page=<?= $currentPage - 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Précédente</a>
-                    </li> <!-- page actuelle -1  -->
-                    <?php for ($page = 1; $page <= $pages; $page++) : //boucle pour pouvoir afficher les chiffre de la pagination
-                    ?>
-                        <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>"> 
-                            <a href="articles.php?page=<?= $page ?>&categorie=<?= $lacateg ?>" class="page-link"><?= $page ?></a>
+                ?>
+                <nav>
+                    <ul class="pagination align-item-center">
+                        <!-- si la page actuelle est sûre la première page on désactive -->
+                        <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                            <a href="articles.php?page=<?= $currentPage - 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Précédente</a>
+                        </li> <!-- page actuelle -1  -->
+                        <?php for ($page = 1; $page <= $pages; $page++) : //boucle pour pouvoir afficher les chiffre de la pagination
+                        ?>
+                            <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
+                                <a href="articles.php?page=<?= $page ?>&categorie=<?= $lacateg ?>" class="page-link"><?= $page ?></a>
+                            </li>
+                        <?php endfor; ?>
+                        <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                            <a href="articles.php?page=<?= $currentPage + 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Suivante</a>
                         </li>
-                    <?php endfor; ?>
-                    <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
-                        <a href="articles.php?page=<?= $currentPage + 1 ?>&categorie=<?= $lacateg ?>" class="page-link">Suivante</a>
-                    </li>
-                </ul>
-            </nav>
+                    </ul>
+                </nav>
 
-        <?php //sinon on  affiche cette pagination
+            <?php //sinon on  affiche cette pagination
         } else {
             // on détermine le nombre total d'articles 
             $sql2 = "SELECT COUNT(*) AS `nb_articles` FROM `articles` ";
@@ -221,95 +221,103 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
 
             // on récupère toute les valeurs dans notre dictionnaire
             $articles = $req->fetchAll();
-        ?>
-            </header>
-            <div>
-                <main class="container">
-                    <h1 class="text-light text-center">Listes des articles</h1>
-                    <!-- C'est la même boucle que l'index mais on travaille pas trop main dans la main np -->
-                    <?php
-                    foreach ($articles as $article) { ?>
-                        <section class="pt-5">
-                            <article class="d-flex flex-column ">
+            ?>
+                </header>
+                <div>
+                    <main class="container">
+                        <h1 class="text-light text-center">Listes des articles</h1>
+                        <!-- C'est la même boucle que l'index mais on travaille pas trop main dans la main np -->
+                        <?php
+                        foreach ($articles as $article) { ?>
+                            <section class="pt-5">
+                                <article class="d-flex flex-column ">
 
-                                <h2 class="text-light text-center">
-                                    <?php echo "titre : " . strip_tags($article["titre"]); ?>
-                                </h2>
-                                <h3 class="text-light text-center">
-                                    <?php
-                                    echo "catégorie : " . strip_tags($article["nom"])
-                                    ?>
-                                </h3>
+                                    <h2 class="text-light text-center">
+                                        <?php echo "titre : " . strip_tags($article["titre"]); ?>
+                                    </h2>
+                                    <h3 class="text-light text-center">
+                                        <?php
+                                        echo "catégorie : " . strip_tags($article["nom"])
+                                        ?>
+                                    </h3>
 
-                                <div class="texte_article">
-                                    <?php echo "article : " . "<br>" ?>
-                                    <?php
-                                    $charMax = 200;
-                                    $countArticle = strlen($article["article"]);
-                                    if ($countArticle > $charMax) {
+                                    <div class="texte_article">
+                                        <?php echo "article : " . "<br>" ?>
+                                        <?php
+                                        $charMax = 200;
+                                        $countArticle = strlen($article["article"]);
+                                        if ($countArticle > $charMax) {
 
-                                        echo strip_tags(substr($article["article"], 0, $charMax) . "...");
+                                            echo strip_tags(substr($article["article"], 0, $charMax) . "...");
 
-                                    ?>
-                                        <div class="mt-3">
-                                        <a class="btn btn-info" href="article.php?article=<?= $article["id"]; ?>">
-                                            Lire la suite de l'article
-                                        </a>
-                                        </div>
-                                    <?php
-                                    } else {
-                                    ?>
-                                        <div class="text-center text-light mt-3">
-                                            <a class="charlie" href="article.php?article=<?= $article['id'] ?>"><?= $article['article'] ?></a>
-                                        </div>
-                                    <?php
-                                    }
+                                        ?>
+                                            <div class="mt-3">
+                                                <a class="btn btn-info" href="article.php?article=<?= $article["id"]; ?>">
+                                                    Lire la suite de l'article
+                                                </a>
+                                            </div>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <div class="text-center text-light mt-3">
+                                                <a class="charlie" href="article.php?article=<?= $article['id'] ?>"><?= $article['article'] ?></a>
+                                            </div>
+                                        <?php
+                                        }
 
-                                    ?>
-        <br>
-                                </div>
-                                <div class="text-light text-center">
-                                    <p>
-                                        <?php echo  "publié le :" . " " . $article["date"]; ?>
-                                    </p>
-                                    <p>
-                                        <?php echo "par : " . $article["login"] ?>
-                                </div>
+                                        ?>
+                                        <br>
+                                    </div>
+                                    <div class="text-light text-center">
+                                        <p>
+                                            <?php echo  "publié le :" . " " . $article["date"]; ?>
+                                        </p>
+                                        <p>
+                                            <?php echo "par : " . $article["login"] ?>
+                                    </div>
 
-                                <hr class="text-light">
-
-
-
-                            </article>
-                        </section>
-                    <?php }
+                                    <hr class="text-light">
 
 
 
-                    ?>
-                    <nav>
-                        <ul class="pagination align-item-center">
-                            <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
-                                <a href="articles.php?page=<?= $currentPage - 1 ?>" class="page-link">Précédente</a>
-                            </li>
-                            <?php for ($page = 1; $page <= $pages; $page++) : ?>
-                                <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
-                                    <a href="articles.php?page=<?= $page ?>" class="page-link"><?= $page ?></a>
+                                </article>
+                            </section>
+                        <?php }
+
+
+
+                        ?>
+                        <nav>
+                            <ul class="pagination align-item-center">
+                                <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                                    <a href="articles.php?page=<?= $currentPage - 1 ?>" class="page-link">Précédente</a>
                                 </li>
-                            <?php endfor; ?>
-                            <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
-                                <a href="articles.php?page=<?= $currentPage + 1 ?>" class="page-link">Suivante</a>
-                            </li>
-                        </ul>
-                    </nav>
+                                <?php for ($page = 1; $page <= $pages; $page++) : ?>
+                                    <li class="page-item <?= ($currentPage == $page) ? "active" : "" ?>">
+                                        <a href="articles.php?page=<?= $page ?>" class="page-link"><?= $page ?></a>
+                                    </li>
+                                <?php endfor; ?>
+                                <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                                    <a href="articles.php?page=<?= $currentPage + 1 ?>" class="page-link">Suivante</a>
+                                </li>
+                            </ul>
+                        </nav>
 
-                <?php } ?>
+                    <?php } ?>
 
-                </main>
-            </div>
-            <footer>
-                <?php include_once("include/footer.php");   ?>
-            </footer>
+                    </main>
+                </div>
+                <footer>
+                    <?php if (!isset($_SESSION["login"])) { // si l'utilisateur n'est pas connecté
+                        include_once('include/footer.php');
+                    } else if (isset($_SESSION["login"])) { // footer de l'utilisateur connecté
+                        include_once("include/footerOnline.php");
+                    } else if (isset($_SESSION["id_droits"]) == 1337) { //footer de l'admin
+                        include_once("include/footerAdmin.php");
+                    } else if (isset($_SESSION["id_droits"]) == 42) { //footer du modo
+                        include_once("include/footerModo.php");
+                    }   ?>
+                </footer>
 </body>
 
 </html>

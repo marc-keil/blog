@@ -45,9 +45,9 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
                 <?php
                 // ID nécessaire pour voir creer un article
                 if ($_SESSION['id_droits'] == 1337) { ?>
-                <a href="créerarticle.php">Créer un article</a><br>
+                    <a href="créerarticle.php">Créer un article</a><br>
 
-              <?php  }                 ?>
+                <?php  }                 ?>
 
 
 
@@ -57,7 +57,16 @@ if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
 
     <footer>
         <?php
-        include_once('include/footer.php');
+        if (!isset($_SESSION["login"])) { // si l'utilisateur n'est pas connecté
+            include_once('include/footer.php');
+        } else if (isset($_SESSION["id_droits"]) == 1337) { //footer de l'admin
+            include_once("include/footerAdmin.php");
+        } else if (isset($_SESSION["id_droits"]) == 42) { //footer du modo
+            include_once("include/footerModo.php");
+        } else { // footer de l'utilisateur connecté
+            include_once("include/footerOnline.php");
+        }
+
         ?>
     </footer>
 </body>
