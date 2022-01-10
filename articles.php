@@ -100,6 +100,7 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
         <div>
             <main class="container">
                 <h1 class="text-light text-center">Listes des articles</h1>
+                <hr class="text-light text-center">
                 <?php
                 foreach ($articles as $article) { //boucle pour parcourir la base de donnée
                 ?>
@@ -226,6 +227,7 @@ if (isset($_GET["page"]) && !empty($_GET["page"])) {
                 <div>
                     <main class="container">
                         <h1 class="text-light text-center">Listes des articles</h1>
+                        <hr class="text-light">
                         <!-- C'est la même boucle que l'index mais on travaille pas trop main dans la main np -->
                         <?php
                         foreach ($articles as $article) { ?>

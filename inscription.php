@@ -2,7 +2,9 @@
 session_start();
 require('config/bdd.php');
 
-
+if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
+    header("Location: profil.php");
+}
 
 if (isset($_POST['forminscription'])) {
     $erreur = "";
@@ -63,60 +65,49 @@ if (isset($_POST['forminscription'])) {
 
 <body>
     <header>
-        <?php if (isset($_SESSION['login'])) {
-            include_once("include/headeronline.php");
-        } else {
+        <?php 
+        
             include_once('include/header.php');
-        }
+        
         ?>
     </header>
     <div class="az">
-        <main>
-            <h2 id="" class=""> Remplissez tout les champs</h2>
-            <br /><br />
-            <form method="POST" action="">
-                <table id="">
-                    <tr>
-                        <td class="" align="right">
-                            <label class="" for="login">Login : </label>
-                        </td>
-                        <td>
-                            <input class="" type="text" placeholder="Votre login" name="login" id="login" value="<?php if (isset($login)) {
+        <main class="text-light ">
+            <h2 class="text-center pb-2" > Remplissez tout les champs</h2>
+            
+
+            <form class="" method="POST" action="">
+                <section class="d-flex justify-content-center">
+            <div class="d-flex flex-column text-center">
+
+                            <label class="p-2 col-12" for="login">Login : </label>
+
+                            <input class="p-2 col-12 " type="text" placeholder="Votre login" name="login" id="login" value="<?php if (isset($login)) {
                                                                                                                         echo $login;
                                                                                                                     } ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="" align="right">
-                            <label class="" for="email">Email : </label>
-                        </td>
-                        <td>
-                            <input class="" type="email" placeholder="Votre email" name="email" id="email">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="" align="right">
-                            <label class="" for="password">Password : </label>
-                        </td>
-                        <td>
-                            <input class="" t type="password" placeholder="Votre password" name="password" id="password">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="" align="right">
-                            <label class="" for="password2">Confirmation du password : </label>
-                        </td>
-                        <td>
-                            <input class="" type="password" placeholder="Confirmation password" name="password2" id="password2">
-                        </td>
-                    </tr>
-                    </td>
+
+
+                            <label class="p-2 col-12" for="email">Email : </label>
+
+                            <input class="p-2 col-12" type="email" placeholder="Votre email" name="email" id="email">
+
+                            <label class="p-2 col-12" for="password">Password : </label>
+
+                            <input class="p-2 col-12"  type="password" placeholder="Votre password" name="password" id="password">
+
+                            <label class="p-2 col-12" for="password2">Confirmation : </label>
+
+                            <input class="p-2 col-12" type="password" placeholder="Confirmation password" name="password2" id="password2">
+
+                    
 
 
 
-                </table>
-                <br />
-                <input id="ee" class="btn btn-primary" t type="submit" name="forminscription" class="forminscription" value="Je m'inscris"><br><BR><br>
+
+
+                        
+                            <input  class="btn btn-primary mb-4 mt-3" type="submit" name="forminscription" class="forminscription" value="Je m'inscris">
+                            </div>
 
             </form>
             <?php

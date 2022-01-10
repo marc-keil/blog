@@ -293,7 +293,7 @@ if (isset($_GET['supprimerarticle']) && !empty($_GET['supprimerarticle'])) {
                 </thead>
                 <?php while ($a = $listearticles->fetch()) { ?>
                     <tr>
-                        <form method="POST">
+                        <form  method="POST">
                             <input id="ida" type="hidden" name="ida" value="<?php echo $a['ida']; ?>">
                             <label class="text-light" for="modiftitre"></label>
                             <td><input class="" id="modiftitre" type="text" name="modiftitre" value="<?php echo $a['titre']; ?>"></td>

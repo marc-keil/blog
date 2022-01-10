@@ -35,6 +35,8 @@ $article = $requetearticle->fetchAll();
 
         <main>
 
+        <h1 class="text-light text-center">Les 3 derniers articles publié</h1>
+            <hr class="text-light">
             <?php foreach ($article as $a) { ?>
 
                 <div class="jaimecentrer">

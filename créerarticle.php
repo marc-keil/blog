@@ -3,9 +3,9 @@ require('config/bdd.php');
 session_start();
 
 
-if (isset($_SESSION['login']) != 1337 || isset($_SESSION['login']) != 42) // ID a changer a modérateur et admin
-{
-    exit; // le header location ne fonctionne pas(erreur serveur interne)
+if ($_SESSION['id_droits'] != 42 && $_SESSION['id_droits'] != 1337) {
+    header("Location: index.php");
+    exit();
 } else {
 
     $listecate = $bdd->query('SELECT * FROM categories ORDER BY id ASC');
@@ -70,9 +70,9 @@ if (isset($_SESSION['login']) != 1337 || isset($_SESSION['login']) != 42) // ID 
             }
             ?>
         </header>
-        <main id="crmaincreer">
+        <main class="az" id="crmaincreer">
             <form id="crformcreer" method="POST">
-                <p class="text-light"> Votre pseudo : <?php echo $infoutilisateur['login'] ?></p><br><br>
+                <p class="text-light"> Bienvenue <?php echo $infoutilisateur['login'] ?></p><br><br>
                 <input type="text" placeholder="Titre" name="titre" id="titre" value="<?php if (isset($titre)) {
                                                                                             echo $titre;
                                                                                         } ?>"><br><br>
@@ -86,7 +86,7 @@ if (isset($_SESSION['login']) != 1337 || isset($_SESSION['login']) != 42) // ID 
                 <textarea name="article" placeholder="Votre article..." value="<?php if (isset($article)) {
                                                                                     echo $article;
                                                                                 } ?>" style="width: 300px; height: 100px"></textarea><br /><br>
-                <input type="submit" value="Poster mon article" name="submit_article" />
+                <input class="btn btn-primary" type="submit" value="Poster mon article" name="submit_article" />
             </form>
             <br>
             <?php if (isset($a_msg)) {
@@ -95,7 +95,15 @@ if (isset($_SESSION['login']) != 1337 || isset($_SESSION['login']) != 42) // ID 
         </main>
         <footer>
             <?php
-            include_once('include/footer.php');
+            if (!isset($_SESSION["login"])) { // si l'utilisateur n'est pas connecté
+                include_once('include/footer.php');
+            } else if (isset($_SESSION["id_droits"]) == 1337) { //footer de l'admin
+                include_once("include/footerAdmin.php");
+            } else if (isset($_SESSION["id_droits"]) == 42) { //footer du modo
+                include_once("include/footerModo.php");
+            } else { // footer de l'utilisateur connecté
+                include_once("include/footerOnline.php");
+            }
             ?>
         </footer>
     </body>
